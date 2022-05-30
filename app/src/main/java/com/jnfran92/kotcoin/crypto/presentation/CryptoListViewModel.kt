@@ -8,7 +8,7 @@ import com.jnfran92.kotcoin.presentation.crypto.dataflow.interpreter.CryptoListI
 import com.jnfran92.kotcoin.presentation.crypto.dataflow.processor.CryptoListProcessor
 import com.jnfran92.kotcoin.presentation.crypto.dataflow.reducer.CryptoListReducer
 import com.jnfran92.kotcoin.presentation.crypto.dataflow.result.CryptoListResult
-import com.jnfran92.kotcoin.presentation.crypto.dataflow.uistate.CryptoListUIState
+import com.jnfran92.kotcoin.crypto.presentation.uistate.CryptoListUIState
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable

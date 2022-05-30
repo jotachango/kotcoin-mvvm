@@ -18,7 +18,7 @@ import com.github.mikephil.charting.formatter.ValueFormatter
 import com.jnfran92.kotcoin.R
 import com.jnfran92.kotcoin.crypto.presentation.CryptoDetailsViewModel
 import com.jnfran92.kotcoin.presentation.crypto.dataflow.intent.CryptoDetailsIntent
-import com.jnfran92.kotcoin.presentation.crypto.dataflow.uistate.CryptoDetailsUIState
+import com.jnfran92.kotcoin.crypto.presentation.uistate.CryptoDetailsUIState
 import com.jnfran92.kotcoin.crypto.presentation.model.UIPrice
 import com.jnfran92.kotcoin.databinding.FragmentCryptoDetailsBinding
 import dagger.hilt.android.AndroidEntryPoint

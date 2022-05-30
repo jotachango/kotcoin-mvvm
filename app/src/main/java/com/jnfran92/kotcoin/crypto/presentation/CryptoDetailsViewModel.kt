@@ -8,7 +8,7 @@ import com.jnfran92.kotcoin.presentation.crypto.dataflow.interpreter.CryptoDetai
 import com.jnfran92.kotcoin.presentation.crypto.dataflow.processor.CryptoDetailsProcessor
 import com.jnfran92.kotcoin.presentation.crypto.dataflow.reducer.CryptoDetailsReducer
 import com.jnfran92.kotcoin.presentation.crypto.dataflow.result.CryptoDetailsResult
-import com.jnfran92.kotcoin.presentation.crypto.dataflow.uistate.CryptoDetailsUIState
+import com.jnfran92.kotcoin.crypto.presentation.uistate.CryptoDetailsUIState
 import dagger.hilt.android.scopes.FragmentScoped
 import io.reactivex.Observable
 import io.reactivex.Scheduler

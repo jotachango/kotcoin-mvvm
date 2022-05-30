@@ -1,7 +1,7 @@
 package com.jnfran92.kotcoin.presentation.crypto.dataflow.reducer
 
 import com.jnfran92.kotcoin.presentation.crypto.dataflow.result.CryptoListResult
-import com.jnfran92.kotcoin.presentation.crypto.dataflow.uistate.CryptoListUIState
+import com.jnfran92.kotcoin.crypto.presentation.uistate.CryptoListUIState
 import io.reactivex.functions.BiFunction
 import timber.log.Timber
 import javax.inject.Inject
