@@ -73,8 +73,8 @@ class CryptoListFragment : Fragment() {
 
     private fun initViewModel() {
         Timber.d("initViewModel")
-        this.viewModel.tx.observe(viewLifecycleOwner, Observer(::render))
-        this.viewModel.rx(CryptoListIntent.GetCryptoListIntent)
+        this.viewModel.uiState.observe(viewLifecycleOwner, Observer(::render))
+        this.viewModel.loadData()
     }
 
 
@@ -96,7 +96,7 @@ class CryptoListFragment : Fragment() {
 
                 binding.lyErrorRetryContainer.btErrorRetryViewGenericRetry.setOnClickListener {
                     Timber.d("render: onClickListener")
-                    viewModel.rx(CryptoListIntent.GetCryptoListIntent)
+                    viewModel.loadData()
                 }
             }
             is CryptoListUIState.ShowDataView -> {

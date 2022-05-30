@@ -3,15 +3,12 @@ package com.jnfran92.kotcoin.crypto.presentation
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.jnfran92.kotcoin.presentation.crypto.dataflow.intent.CryptoListIntent
-import com.jnfran92.kotcoin.presentation.crypto.dataflow.interpreter.CryptoListInterpreter
-import com.jnfran92.kotcoin.presentation.crypto.dataflow.processor.CryptoListProcessor
-import com.jnfran92.kotcoin.presentation.crypto.dataflow.reducer.CryptoListReducer
-import com.jnfran92.kotcoin.presentation.crypto.dataflow.result.CryptoListResult
+import com.jnfran92.domain.crypto.GetCryptoListUseCase
+import com.jnfran92.kotcoin.crypto.presentation.mapper.DomainCryptoToUIMapper
+import com.jnfran92.kotcoin.crypto.presentation.model.UICrypto
 import com.jnfran92.kotcoin.crypto.presentation.uistate.CryptoListUIState
-import io.reactivex.Observable
-import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.rxkotlin.plusAssign
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
@@ -22,9 +19,8 @@ import timber.log.Timber
  * MVI formatted! data flow
  */
 class CryptoListViewModel @ViewModelInject constructor(
-    private val processor: CryptoListProcessor,
-    private val interpreter: CryptoListInterpreter,
-    private val reducer: CryptoListReducer
+    private val getCryptoListUseCase: GetCryptoListUseCase,
+    private val cryptoToUIMapper: DomainCryptoToUIMapper
 ) : ViewModel() {
 
     /**
@@ -33,54 +29,34 @@ class CryptoListViewModel @ViewModelInject constructor(
     private val compositeDisposable = CompositeDisposable()
 
     /**
-     * TX: transmit UI events to View
+     * view states
      */
-    val tx: MutableLiveData<CryptoListUIState> = MutableLiveData()
+    val uiState = MutableLiveData<CryptoListUIState>()
 
-    /**
-     * RX: receive User intents from View
-     */
-    fun rx(intent: CryptoListIntent) {
-        Timber.d("rx: $intent")
-        interpreter.processIntent(intent)
-    }
+    fun loadData(){
+        Timber.d("loadData: ")
+        uiState.postValue(CryptoListUIState.ShowLoadingView)
 
-    init {
-        initDataFlow()
-    }
+        compositeDisposable +=
+            getCryptoListUseCase()
+                .map(cryptoToUIMapper::transform)
+                .observeOn(Schedulers.io())
+                .subscribeOn(Schedulers.io())
+                .subscribeWith(object: DisposableSingleObserver<List<UICrypto>>(){
+                    override fun onSuccess(t: List<UICrypto>) {
+                        Timber.d("onSuccess: ")
+                        uiState.postValue(CryptoListUIState.ShowDataView(t))
+                    }
 
-    private fun initDataFlow() {
-        Timber.d("initDataFlow: ")
-        val dataFlow = interpreter flowTo processor flowTo reducer flowOn Schedulers.io()
-        compositeDisposable += dataFlow.subscribe(tx::postValue) { Timber.d("initDataFlow: error $it") }
+                    override fun onError(e: Throwable) {
+                        Timber.d("onError: ")
+                        uiState.postValue(CryptoListUIState.ShowErrorRetryView(e))
+                    }
+                })
     }
 
     override fun onCleared() {
         super.onCleared()
         compositeDisposable.dispose()
-    }
-
-    /**
-     * infix helper: interpreter to processor
-     */
-    private infix fun CryptoListInterpreter.flowTo(processor: CryptoListProcessor):
-            Observable<CryptoListResult> {
-        return this.toObservable().compose(processor)
-    }
-
-    /**
-     * infix helper: processor to reducer
-     */
-    private infix fun Observable<CryptoListResult>.flowTo(reducer: CryptoListReducer):
-            Observable<CryptoListUIState> {
-        return this.scan(CryptoListUIState.ShowDefaultView, reducer)
-    }
-
-    /**
-     * infix helper: processor to reducer
-     */
-    private infix fun Observable<CryptoListUIState>.flowOn(scheduler: Scheduler):
-            Observable<CryptoListUIState> {
-        return this.observeOn(scheduler).subscribeOn(scheduler)
     }
 }
