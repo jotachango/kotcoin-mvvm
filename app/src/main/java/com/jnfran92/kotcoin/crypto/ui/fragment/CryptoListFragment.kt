@@ -1,4 +1,4 @@
-package com.jnfran92.kotcoin.ui.crypto.fragment
+package com.jnfran92.kotcoin.crypto.ui.fragment
 
 import android.content.res.Configuration
 import android.os.Bundle
@@ -10,11 +10,11 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import com.jnfran92.kotcoin.databinding.FragmentCryptoListBinding
-import com.jnfran92.kotcoin.presentation.crypto.CryptoListViewModel
+import com.jnfran92.kotcoin.crypto.presentation.CryptoListViewModel
 import com.jnfran92.kotcoin.presentation.crypto.dataflow.intent.CryptoListIntent
 import com.jnfran92.kotcoin.presentation.crypto.dataflow.uistate.CryptoListUIState
-import com.jnfran92.kotcoin.ui.crypto.adapter.CryptoListAdapter
-import com.jnfran92.kotcoin.ui.crypto.navigator.CryptoListNavigator
+import com.jnfran92.kotcoin.crypto.ui.adapter.CryptoListAdapter
+import com.jnfran92.kotcoin.crypto.ui.navigator.CryptoListNavigator
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import javax.inject.Inject

@@ -1,4 +1,4 @@
-package com.jnfran92.kotcoin.ui.crypto.activity
+package com.jnfran92.kotcoin.crypto.ui.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -15,7 +15,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_crypto.*
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
-import kotlin.math.log
 
 /**
  * View for display a list of [Crypto] objects.

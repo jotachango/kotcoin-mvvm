@@ -1,4 +1,4 @@
-package com.jnfran92.kotcoin.ui.crypto.adapter
+package com.jnfran92.kotcoin.crypto.ui.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.card.MaterialCardView
 import com.jnfran92.kotcoin.R
 import com.jnfran92.kotcoin.databinding.ViewCryptoItemBinding
-import com.jnfran92.kotcoin.presentation.crypto.model.UICrypto
+import com.jnfran92.kotcoin.crypto.presentation.model.UICrypto
 import dagger.hilt.android.qualifiers.ActivityContext
 import dagger.hilt.android.scopes.FragmentScoped
 import kotlinx.android.synthetic.main.view_crypto_item.view.*

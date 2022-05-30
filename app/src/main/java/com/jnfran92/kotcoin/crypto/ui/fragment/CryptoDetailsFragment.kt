@@ -1,4 +1,4 @@
-package com.jnfran92.kotcoin.ui.crypto.fragment
+package com.jnfran92.kotcoin.crypto.ui.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
-import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.components.AxisBase
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
@@ -17,11 +16,11 @@ import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.ValueFormatter
 import com.jnfran92.kotcoin.R
-import com.jnfran92.kotcoin.databinding.FragmentCryptoDetailsBinding
-import com.jnfran92.kotcoin.presentation.crypto.CryptoDetailsViewModel
+import com.jnfran92.kotcoin.crypto.presentation.CryptoDetailsViewModel
 import com.jnfran92.kotcoin.presentation.crypto.dataflow.intent.CryptoDetailsIntent
 import com.jnfran92.kotcoin.presentation.crypto.dataflow.uistate.CryptoDetailsUIState
-import com.jnfran92.kotcoin.presentation.crypto.model.UIPrice
+import com.jnfran92.kotcoin.crypto.presentation.model.UIPrice
+import com.jnfran92.kotcoin.databinding.FragmentCryptoDetailsBinding
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import java.text.SimpleDateFormat

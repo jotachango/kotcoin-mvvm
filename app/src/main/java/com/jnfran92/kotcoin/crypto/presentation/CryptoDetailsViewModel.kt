@@ -1,4 +1,4 @@
-package com.jnfran92.kotcoin.presentation.crypto
+package com.jnfran92.kotcoin.crypto.presentation
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData

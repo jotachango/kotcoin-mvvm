@@ -1,6 +1,6 @@
 package com.jnfran92.kotcoin.presentation.crypto.dataflow.result
 
-import com.jnfran92.kotcoin.presentation.crypto.model.UICryptoDetails
+import com.jnfran92.kotcoin.crypto.presentation.model.UICryptoDetails
 
 sealed class CryptoDetailsResult {
 

@@ -1,8 +1,8 @@
-package com.jnfran92.kotcoin.presentation.crypto.mapper
+package com.jnfran92.kotcoin.crypto.presentation.mapper
 
 import com.jnfran92.domain.crypto.model.DomainCrypto
-import com.jnfran92.kotcoin.presentation.crypto.model.UICrypto
-import com.jnfran92.kotcoin.presentation.crypto.model.UIPrice
+import com.jnfran92.kotcoin.crypto.presentation.model.UICrypto
+import com.jnfran92.kotcoin.crypto.presentation.model.UIPrice
 import javax.inject.Inject
 import javax.inject.Singleton
 

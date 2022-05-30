@@ -3,7 +3,7 @@ package com.jnfran92.kotcoin.presentation.crypto.dataflow.processor
 import com.jnfran92.domain.crypto.GetCryptoDetailsUseCase
 import com.jnfran92.kotcoin.presentation.crypto.dataflow.action.CryptoDetailsAction
 import com.jnfran92.kotcoin.presentation.crypto.dataflow.result.CryptoDetailsResult
-import com.jnfran92.kotcoin.presentation.crypto.mapper.DomainCryptoDetailsToUIMapper
+import com.jnfran92.kotcoin.crypto.presentation.mapper.DomainCryptoDetailsToUIMapper
 import io.reactivex.Observable
 import io.reactivex.ObservableSource
 import io.reactivex.ObservableTransformer

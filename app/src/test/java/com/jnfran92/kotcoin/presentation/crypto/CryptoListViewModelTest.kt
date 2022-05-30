@@ -3,13 +3,14 @@ package com.jnfran92.kotcoin.presentation.crypto
 import com.jnfran92.domain.crypto.GetCryptoListUseCase
 import com.jnfran92.domain.crypto.model.DomainCrypto
 import com.jnfran92.domain.crypto.model.DomainPrice
+import com.jnfran92.kotcoin.crypto.presentation.CryptoListViewModel
 import com.jnfran92.kotcoin.presentation.crypto.dataflow.intent.CryptoListIntent
 import com.jnfran92.kotcoin.presentation.crypto.dataflow.interpreter.CryptoListInterpreter
 import com.jnfran92.kotcoin.presentation.crypto.dataflow.processor.CryptoListProcessor
 import com.jnfran92.kotcoin.presentation.crypto.dataflow.reducer.CryptoListReducer
 import com.jnfran92.kotcoin.presentation.crypto.dataflow.result.CryptoListResult
 import com.jnfran92.kotcoin.presentation.crypto.dataflow.uistate.CryptoListUIState
-import com.jnfran92.kotcoin.presentation.crypto.mapper.DomainCryptoToUIMapper
+import com.jnfran92.kotcoin.crypto.presentation.mapper.DomainCryptoToUIMapper
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
 import io.reactivex.Observable

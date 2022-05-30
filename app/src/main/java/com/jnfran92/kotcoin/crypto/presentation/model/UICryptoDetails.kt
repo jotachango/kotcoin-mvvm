@@ -1,4 +1,4 @@
-package com.jnfran92.kotcoin.presentation.crypto.model
+package com.jnfran92.kotcoin.crypto.presentation.model
 
 import android.os.Parcelable
 import androidx.annotation.Keep
