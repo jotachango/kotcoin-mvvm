@@ -3,6 +3,9 @@ package com.jnfran92.kotcoin.crypto.presentation
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.jnfran92.domain.crypto.GetCryptoDetailsUseCase
+import com.jnfran92.kotcoin.crypto.presentation.mapper.DomainCryptoDetailsToUIMapper
+import com.jnfran92.kotcoin.crypto.presentation.model.UICryptoDetails
 import com.jnfran92.kotcoin.presentation.crypto.dataflow.intent.CryptoDetailsIntent
 import com.jnfran92.kotcoin.presentation.crypto.dataflow.interpreter.CryptoDetailsInterpreter
 import com.jnfran92.kotcoin.presentation.crypto.dataflow.processor.CryptoDetailsProcessor
@@ -13,6 +16,7 @@ import dagger.hilt.android.scopes.FragmentScoped
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.rxkotlin.plusAssign
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
@@ -23,9 +27,8 @@ import timber.log.Timber
  */
 @FragmentScoped
 class CryptoDetailsViewModel @ViewModelInject constructor(
-    private val processor: CryptoDetailsProcessor,
-    private val interpreter: CryptoDetailsInterpreter,
-    private val reducer: CryptoDetailsReducer
+    private val getCryptoDetailsUseCase: GetCryptoDetailsUseCase,
+    private val cryptoDetailsToUIMapper: DomainCryptoDetailsToUIMapper
 ) : ViewModel() {
 
     /**
@@ -34,26 +37,30 @@ class CryptoDetailsViewModel @ViewModelInject constructor(
     private val compositeDisposable = CompositeDisposable()
 
     /**
-     * TX: transmit UI events
+     * view states
      */
-    val tx: MutableLiveData<CryptoDetailsUIState> = MutableLiveData()
+    val uiState = MutableLiveData<CryptoDetailsUIState>()
 
-    /**
-     * RX: receive User intents
-     */
-    fun rx(intent: CryptoDetailsIntent) {
-        Timber.d("rx: $intent")
-        interpreter.processIntent(intent)
-    }
+    fun loadData(cryptoId: Long){
+        Timber.d("loadData: ")
+        uiState.postValue(CryptoDetailsUIState.ShowLoadingView)
 
-    init {
-        initDataFlow()
-    }
+        compositeDisposable +=
+            getCryptoDetailsUseCase(cryptoId)
+                .map(cryptoDetailsToUIMapper::transform)
+                .observeOn(Schedulers.io())
+                .subscribeOn(Schedulers.io())
+                .subscribeWith(object: DisposableSingleObserver<UICryptoDetails>(){
+                    override fun onSuccess(t: UICryptoDetails) {
+                        Timber.d("onSuccess: ")
+                        uiState.postValue(CryptoDetailsUIState.ShowDataView(t))
+                    }
 
-    private fun initDataFlow() {
-        Timber.d("initDataFlow: ")
-        val dataFlow = interpreter flowTo processor flowTo reducer flowOn Schedulers.io()
-        compositeDisposable += dataFlow.subscribe(tx::postValue) { Timber.d("initDataFlow: error $it") }
+                    override fun onError(e: Throwable) {
+                        Timber.d("onError: ")
+                        uiState.postValue(CryptoDetailsUIState.ShowErrorRetryView(e))
+                    }
+                })
     }
 
     override fun onCleared() {
@@ -61,28 +68,4 @@ class CryptoDetailsViewModel @ViewModelInject constructor(
         super.onCleared()
         compositeDisposable.dispose()
     }
-
-
-    /**
-     * infix helper: interpreter to processor
-     */
-    private infix fun CryptoDetailsInterpreter.flowTo(processor: CryptoDetailsProcessor): Observable<CryptoDetailsResult> {
-        return this.toObservable().compose(processor)
-    }
-
-    /**
-     * infix helper: processor to reducer
-     */
-    private infix fun Observable<CryptoDetailsResult>.flowTo(reducer: CryptoDetailsReducer): Observable<CryptoDetailsUIState> {
-        return this.scan(CryptoDetailsUIState.ShowDefaultView, reducer)
-    }
-
-    /**
-     * infix helper: processor to reducer
-     */
-    private infix fun Observable<CryptoDetailsUIState>.flowOn(scheduler: Scheduler):
-            Observable<CryptoDetailsUIState> {
-        return this.observeOn(scheduler).subscribeOn(scheduler)
-    }
-
 }

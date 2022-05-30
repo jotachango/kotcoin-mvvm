@@ -69,8 +69,8 @@ class CryptoDetailsFragment : Fragment() {
 
     private fun initViewModel() {
         Timber.d("initViewModel: get crypto details by id: ${args.cryptoItem.id}")
-        this.viewModel.tx.observe(viewLifecycleOwner, Observer(::render))
-        this.viewModel.rx(CryptoDetailsIntent.GetCryptoDetailsIntent(args.cryptoItem.id))
+        this.viewModel.uiState.observe(viewLifecycleOwner, Observer(::render))
+        this.viewModel.loadData(args.cryptoItem.id)
     }
 
     private fun render(uiState: CryptoDetailsUIState) {
@@ -90,7 +90,7 @@ class CryptoDetailsFragment : Fragment() {
 
                 binding.lyErrorRetryContainer.btErrorRetryViewGenericRetry.setOnClickListener {
                     Timber.d("render: onClickListener")
-                    viewModel.rx(CryptoDetailsIntent.GetCryptoDetailsIntent(args.cryptoItem.id))
+                    viewModel.loadData(args.cryptoItem.id)
                 }
             }
             is CryptoDetailsUIState.ShowDataView -> {
