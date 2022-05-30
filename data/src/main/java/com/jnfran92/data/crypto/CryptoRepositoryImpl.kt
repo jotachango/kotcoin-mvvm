@@ -25,7 +25,6 @@ class CryptoRepositoryImpl @Inject constructor(
     private val cryptoDetailsToDomainMapper: CryptoDetailsToDomainMapper
 ) : CryptoRepository {
 
-
     /**
      * Always get Crypto data(List) from the Cloud.
      */
