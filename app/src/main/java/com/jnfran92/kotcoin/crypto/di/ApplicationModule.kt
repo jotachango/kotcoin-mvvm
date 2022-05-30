@@ -1,4 +1,4 @@
-package com.jnfran92.kotcoin.di.module
+package com.jnfran92.kotcoin.crypto.di
 
 import android.content.Context
 import androidx.room.Room

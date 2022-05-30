@@ -1,4 +1,4 @@
-package com.jnfran92.kotcoin.di.module
+package com.jnfran92.kotcoin.crypto.di
 
 import dagger.Module
 import dagger.hilt.InstallIn
