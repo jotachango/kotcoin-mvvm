@@ -1,11 +1,9 @@
-# Kotcoin :computer: :moneybag: 
-
+# Kotcoin MVVM-based :computer: :moneybag:
 Crypto matters!
 
-<img src="https://media.giphy.com/media/TzM708yJfPFcY/giphy.gif" alt="kotcoin-intro">
+<img src="https://media.giphy.com/media/RgxAkfVQWwkjS/giphy.gif" alt="kotcoin-intro">
 
-
-Android Application **MVI-based** and written all in Kotlin for retrieving 10 most capitalized 
+Android Application **MVVM-based** and written all in Kotlin for retrieving 10 most capitalized 
 Crypto-currencies from [CoinMarketCap](https://coinmarketcap.com/api) API (_Note: eventually you will need a free API Key_).
 
 
