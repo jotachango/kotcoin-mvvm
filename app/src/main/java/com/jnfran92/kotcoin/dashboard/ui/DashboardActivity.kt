@@ -21,6 +21,7 @@ class DashboardActivity : ComponentActivity() {
     }
 }
 
+
 @Composable
 fun SimpleComposable() {
     Row{
