@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.layout.TestModifierUpdaterLayout
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.jnfran92.kotcoin.R
@@ -16,7 +17,8 @@ class DashboardActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            SimpleComposable()
+//            SimpleComposable()
+            Table(listOfItems = listOf("A","B","C"))
         }
     }
 }
@@ -40,8 +42,20 @@ fun SimpleComposable() {
     }
 }
 
+@Composable
+fun Table(listOfItems: List<String>) {
+    Column {
+        listOfItems.mapIndexed { index, s ->
+            Row {
+                Text(text = index.toString())
+                Text(text = s)
+            }
+        }
+    }
+}
+
 @Preview
 @Composable
 fun ComposablePreview() {
-    SimpleComposable()
+    Table(listOfItems = listOf("A","B","C"))
 }

@@ -14,11 +14,11 @@ apply plugin: 'org.jetbrains.kotlin.android.extensions'
 
 
 android {
-    compileSdkVersion 32
+    compileSdkVersion 33
     defaultConfig {
         applicationId "com.jnfran92.kotcoin"
         minSdkVersion 26
-        targetSdkVersion 32
+        targetSdkVersion 33
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -81,7 +81,7 @@ dependencies {
 
     // UI
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-    implementation 'com.android.support:design:32.0.0'
+    implementation 'com.android.support:design:33.0.0'
 
     // Testing
     implementation 'com.google.android.material:material:1.2.1'
@@ -179,6 +179,8 @@ dependencies {
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_version"
+
+//    implementation "androidx.compose.material3:material3:1.1.1"
 
     // module dependency presentation(app) -> domain
     implementation project(':domain')
