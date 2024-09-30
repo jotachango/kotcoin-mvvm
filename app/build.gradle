@@ -59,7 +59,7 @@ android {
         experimental = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion '1.1.1'
+        kotlinCompilerExtensionVersion "1.4.3"
     }
     packagingOptions {
         resources {
@@ -188,6 +188,9 @@ dependencies {
 
     // mockito
     testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0"
+
+    implementation("androidx.compose.material3:material3:1.1.1")
+    implementation("androidx.compose.ui:ui-text-google-fonts:1.4.3")
 }
 
 kapt {

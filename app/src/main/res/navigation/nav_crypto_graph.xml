@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/cryptoListFragment"
-        android:name="com.jnfran92.kotcoin.crypto.ui.fragment.CryptoListFragment"
+        android:name="com.jnfran92.kotcoin.features.crypto.ui.fragment.CryptoListFragment"
         android:label="@string/app_name">
         <action
             android:id="@+id/action_cryptoListFragment_to_cryptoDetailsFragment"
@@ -15,10 +15,10 @@
 
     <fragment
         android:id="@+id/cryptoDetailsFragment"
-        android:name="com.jnfran92.kotcoin.crypto.ui.fragment.CryptoDetailsFragment"
+        android:name="com.jnfran92.kotcoin.features.crypto.ui.fragment.CryptoDetailsFragment"
         android:label="CryptoDetailsFragment">
         <argument
             android:name="cryptoItem"
-            app:argType="com.jnfran92.kotcoin.crypto.presentation.model.UICrypto" />
+            app:argType="com.jnfran92.kotcoin.features.crypto.presentation.model.UICrypto" />
     </fragment>
 </navigation>
