@@ -18,6 +18,7 @@ class DashboardActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
 //            SimpleComposable()
+
             Table(listOfItems = listOf("A","B","C"))
         }
     }
