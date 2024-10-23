@@ -209,10 +209,34 @@ fun DashboardView() {
                                         modifier = Modifier.padding(8.dp)
                                     )
                                     Image(
-                                        painter = painterResource(id = R.drawable.baseline_arrow_drop_up_24),
+                                        painter = painterResource(id =
+                                        when(item.trending){
+                                            UICryptoFavoriteTrending.NotTrending -> {
+                                                R.drawable.baseline_arrow_drop_up_24
+                                            }
+                                            UICryptoFavoriteTrending.TrendingDown ->{
+                                                R.drawable.baseline_arrow_drop_down_24
+                                            }
+                                            UICryptoFavoriteTrending.TrendingUp -> {
+                                                R.drawable.baseline_arrow_drop_up_24
+                                            }
+                                        }
+                                        ),
                                         contentDescription = "trending",
-                                        modifier = Modifier.size(24.dp),
-                                        colorFilter = ColorFilter.tint(Color.Black)
+                                        modifier = Modifier.size(30.dp),
+                                        colorFilter = ColorFilter.tint(
+                                            when(item.trending){
+                                                UICryptoFavoriteTrending.NotTrending -> {
+                                                    Color.Blue
+                                                }
+                                                UICryptoFavoriteTrending.TrendingDown ->{
+                                                    Color.Red
+                                                }
+                                                UICryptoFavoriteTrending.TrendingUp -> {
+                                                    Color.Green
+                                                }
+                                            }
+                                        )
                                     )
                                 }
                                 Text(
