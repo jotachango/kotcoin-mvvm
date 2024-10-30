@@ -50,6 +50,7 @@ import com.jnfran92.kotcoin.crypto.presentation.model.UIPrice
 import java.text.SimpleDateFormat
 import java.util.Locale
 import kotlin.math.PI
+import kotlin.math.pow
 import kotlin.math.sin
 
 class DashboardActivity : ComponentActivity() {
@@ -159,7 +160,7 @@ val uiCryptoPopulars = listOf(
         name = "Ethereum",
         symbol = "ETH",
         historicalUIPrice = List(20) { index ->
-            val value = sin(2 * PI * index / 20)
+            val value = sin(2 * PI * index / 20).pow(2)
             UIPrice(
                 price = value,
                 marketCap = 226700000000.0,
