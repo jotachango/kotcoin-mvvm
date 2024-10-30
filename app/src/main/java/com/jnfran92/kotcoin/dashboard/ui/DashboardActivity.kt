@@ -14,8 +14,12 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.GridCells
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.LazyVerticalGrid
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
@@ -182,18 +186,17 @@ fun DashboardView() {
             )
         },
     ) { innerPadding ->
-        Column(
+        LazyColumn(
             modifier = Modifier
                 .padding(innerPadding)
                 .fillMaxWidth()
         ) {
+            item {
+                Text(text = "Favoritos")
+            }
 
-            Text(text = "Favoritos")
-            Row {
-                LazyVerticalGrid(
-                    cells = GridCells.Fixed(2)
-                ) {
-
+            item {
+                LazyRow {
                     items(uiCryptoFavorites) { item ->
                         Card(elevation = 4.dp, modifier = Modifier.padding(8.dp)) {
                             Column(
@@ -208,29 +211,34 @@ fun DashboardView() {
                                         modifier = Modifier.padding(8.dp)
                                     )
                                     Image(
-                                        painter = painterResource(id =
-                                        when(item.trending){
-                                            UICryptoFavoriteTrending.NotTrending -> {
-                                                R.drawable.baseline_arrow_drop_up_24
+                                        painter = painterResource(
+                                            id =
+                                            when (item.trending) {
+                                                UICryptoFavoriteTrending.NotTrending -> {
+                                                    R.drawable.baseline_arrow_drop_up_24
+                                                }
+
+                                                UICryptoFavoriteTrending.TrendingDown -> {
+                                                    R.drawable.baseline_arrow_drop_down_24
+                                                }
+
+                                                UICryptoFavoriteTrending.TrendingUp -> {
+                                                    R.drawable.baseline_arrow_drop_up_24
+                                                }
                                             }
-                                            UICryptoFavoriteTrending.TrendingDown ->{
-                                                R.drawable.baseline_arrow_drop_down_24
-                                            }
-                                            UICryptoFavoriteTrending.TrendingUp -> {
-                                                R.drawable.baseline_arrow_drop_up_24
-                                            }
-                                        }
                                         ),
                                         contentDescription = "trending",
                                         modifier = Modifier.size(30.dp),
                                         colorFilter = ColorFilter.tint(
-                                            when(item.trending){
+                                            when (item.trending) {
                                                 UICryptoFavoriteTrending.NotTrending -> {
                                                     Color.Blue
                                                 }
-                                                UICryptoFavoriteTrending.TrendingDown ->{
+
+                                                UICryptoFavoriteTrending.TrendingDown -> {
                                                     Color.Red
                                                 }
+
                                                 UICryptoFavoriteTrending.TrendingUp -> {
                                                     Color.Green
                                                 }
@@ -254,42 +262,30 @@ fun DashboardView() {
                 }
             }
 
-            Text(text = "Populares")
-
-            Row {
-
-                LazyVerticalGrid(
-                    cells = GridCells.Adaptive(minSize = 200.dp)
-                ) {
-
-                    items(uiCryptoPopulars) { item ->
-                        Card(elevation = 4.dp, modifier = Modifier.padding(8.dp)) {
-                            Column(
-                                modifier = Modifier.padding(16.dp),
-                                horizontalAlignment = Alignment.CenterHorizontally
-                            ) {
-                                Text(
-                                    text = item.symbol,
-                                    fontSize = 15.sp,
-                                    fontWeight = FontWeight.Light
-                                )
-                                Text(
-                                    text = item.name,
-                                    fontSize = 15.sp,
-                                    fontWeight = FontWeight.Light
-                                )
-                                val entries = item.historicalUIPrice.mapIndexed { index, uiPrice ->
-                                    Entry(index.toFloat(), uiPrice.price.toFloat())
-                                }
-
-                                Row(verticalAlignment = Alignment.CenterVertically) {
-                                    LineChartCompose(item.historicalUIPrice)
-                                }
-                            }
+            item {
+                Text(text = "Populares")
+            }
+            items(uiCryptoPopulars) { item ->
+                Card(elevation = 4.dp, modifier = Modifier.padding(8.dp)) {
+                    Column(
+                        modifier = Modifier.padding(16.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Text(
+                            text = item.symbol,
+                            fontSize = 15.sp,
+                            fontWeight = FontWeight.Light
+                        )
+                        Text(
+                            text = item.name,
+                            fontSize = 15.sp,
+                            fontWeight = FontWeight.Light
+                        )
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            LineChartCompose(item.historicalUIPrice)
                         }
                     }
                 }
-
             }
         }
     }
@@ -362,7 +358,6 @@ fun LineChartCompose(
             .padding(10.dp)
     )
 }
-
 
 
 @Preview
