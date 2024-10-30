@@ -8,7 +8,9 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.GridCells
@@ -29,9 +31,22 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.viewinterop.AndroidView
+import com.github.mikephil.charting.charts.LineChart
+import com.github.mikephil.charting.components.AxisBase
+import com.github.mikephil.charting.components.XAxis
+import com.github.mikephil.charting.data.ChartData
+import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.data.LineData
+import com.github.mikephil.charting.data.LineDataSet
+import com.github.mikephil.charting.formatter.ValueFormatter
 import com.jnfran92.kotcoin.R
 import com.jnfran92.kotcoin.crypto.presentation.model.UICryptoDetails
 import com.jnfran92.kotcoin.crypto.presentation.model.UIPrice
+import java.text.SimpleDateFormat
+import java.util.Locale
+import kotlin.math.PI
+import kotlin.math.sin
 
 class DashboardActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -122,51 +137,35 @@ val uiCryptoPopulars = listOf(
         id = 1,
         name = "Bitcoin",
         symbol = "BTC",
-        historicalUIPrice = listOf(
+        historicalUIPrice = List(20) { index ->
+            val value = sin(2 * PI * index / 20)
             UIPrice(
-                price = 30125.50,
-                marketCap = 575900000000.0,
-                volume24h = 15100000000.0,
-                percentChange1h = 0.05,
-                percentChange24h = -0.2,
-                percentChange7d = 1.3,
-                lastUpdated = "2023-07-28T14:50:00.000Z"
-            ),
-            UIPrice(
-                price = 29900.00,
-                marketCap = 571000000000.0,
-                volume24h = 15000000000.0,
-                percentChange1h = 0.1,
-                percentChange24h = -0.1,
-                percentChange7d = 1.5,
-                lastUpdated = "2023-07-27T13:49:00.000Z"
-            )
-        )
-    ),
-    UICryptoPopular(
-        id = 2,
-        name = "Ethereum",
-        symbol = "ETH",
-        historicalUIPrice = listOf(
-            UIPrice(
-                price = 1885.75,
+                price = value,
                 marketCap = 226700000000.0,
                 volume24h = 7450000000.0,
                 percentChange1h = -0.02,
                 percentChange24h = -0.3,
                 percentChange7d = 0.5,
                 lastUpdated = "2023-07-28T14:50:00.000Z"
-            ),
-            UIPrice(
-                price = 1890.00,
-                marketCap = 227000000000.0,
-                volume24h = 7500000000.0,
-                percentChange1h = 0.2,
-                percentChange24h = -0.25,
-                percentChange7d = 0.6,
-                lastUpdated = "2023-07-27T13:49:00.000Z"
             )
-        )
+        }
+    ),
+    UICryptoPopular(
+        id = 2,
+        name = "Ethereum",
+        symbol = "ETH",
+        historicalUIPrice = List(20) { index ->
+            val value = sin(2 * PI * index / 20)
+            UIPrice(
+                price = value,
+                marketCap = 226700000000.0,
+                volume24h = 7450000000.0,
+                percentChange1h = -0.02,
+                percentChange24h = -0.3,
+                percentChange7d = 0.5,
+                lastUpdated = "2023-07-28T14:50:00.000Z"
+            )
+        }
     )
 )
 
@@ -279,8 +278,12 @@ fun DashboardView() {
                                     fontSize = 15.sp,
                                     fontWeight = FontWeight.Light
                                 )
-                                Row(verticalAlignment = Alignment.CenterVertically) {
+                                val entries = item.historicalUIPrice.mapIndexed { index, uiPrice ->
+                                    Entry(index.toFloat(), uiPrice.price.toFloat())
+                                }
 
+                                Row(verticalAlignment = Alignment.CenterVertically) {
+                                    LineChartCompose(item.historicalUIPrice)
                                 }
                             }
                         }
@@ -291,6 +294,76 @@ fun DashboardView() {
         }
     }
 }
+
+@Composable
+fun LineChartCompose(
+    historicData: List<UIPrice>
+) {
+    AndroidView(
+        factory = { context ->
+            LineChart(context).apply {
+                // Customize the chart here (e.g., set colors, labels, etc.)
+                val entries = historicData.mapIndexed { index, uiPrice ->
+                    Entry(index.toFloat(), uiPrice.price.toFloat())
+                }
+
+                val dataSet = LineDataSet(entries, null)
+                dataSet.mode = LineDataSet.Mode.CUBIC_BEZIER
+                dataSet.setDrawFilled(true)
+                dataSet.setDrawCircles(false)
+                dataSet.lineWidth = 3.0f
+                dataSet.valueTextSize = 0.0f
+                dataSet.setDrawValues(false)
+
+                val lineData = LineData(dataSet)
+
+
+                data = lineData
+                legend.isEnabled = false
+                description = null
+
+                xAxis.setDrawGridLines(false)
+                axisLeft.setDrawGridLines(false)
+                axisRight.setDrawGridLines(false)
+
+                xAxis.setDrawAxisLine(false)
+                axisLeft.setDrawAxisLine(false)
+                axisRight.setDrawAxisLine(false)
+                axisRight.isEnabled = false
+
+                axisRight.textColor = resources.getColor(R.color.white, null)
+                axisLeft.textColor = resources.getColor(R.color.white, null)
+                xAxis.textColor = resources.getColor(R.color.white, null)
+                legend.textColor = resources.getColor(R.color.white, null)
+
+                val formatter = SimpleDateFormat("yyyy-mm-dd", Locale.US)
+
+                xAxis.valueFormatter = object : ValueFormatter() {
+                    override fun getAxisLabel(value: Float, axis: AxisBase?): String {
+                        val date = formatter.parse(historicData[value.toInt()].lastUpdated)
+                        return formatter.format(date ?: "")
+                    }
+                }
+                xAxis.position = XAxis.XAxisPosition.BOTTOM
+                xAxis.labelRotationAngle = 45.0f
+                xAxis.isGranularityEnabled = true
+                xAxis.granularity = 7f
+                extraBottomOffset = 40f
+                setTouchEnabled(true)
+                setDrawBorders(false)
+                setDrawGridBackground(false)
+                invalidate()
+
+            }
+        },
+        modifier = Modifier
+            .fillMaxSize()
+            .height(300.dp)
+            .padding(10.dp)
+    )
+}
+
+
 
 @Preview
 @Composable
