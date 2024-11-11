@@ -1,14 +1,16 @@
 package com.jnfran92.kotcoin.worker
 
 import android.content.Context
-import androidx.hilt.Assisted
-import androidx.hilt.work.WorkerInject
+import androidx.hilt.work.HiltWorker
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.jnfran92.domain.crypto.GetCryptoListUseCase
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedInject
 import timber.log.Timber
 
-class GetLatestCryptoDataWorker @WorkerInject constructor(
+@HiltWorker
+class GetLatestCryptoDataWorker @AssistedInject constructor(
     @Assisted appContext: Context,
     @Assisted workerParams: WorkerParameters,
     val useCase: GetCryptoListUseCase

@@ -12,8 +12,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Card
-import androidx.compose.material.Text
+import androidx.compose.material3.Card
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -52,7 +52,7 @@ fun DashboardScreen(innerPadding: PaddingValues, uiDashboard: UIDashboard) {
         item {
             LazyRow {
                 items(uiDashboard.listOfFavorites) { item ->
-                    Card(elevation = 4.dp, modifier = Modifier.padding(8.dp)) {
+                    Card(modifier = Modifier.padding(8.dp)) {
                         Column(
                             modifier = Modifier.padding(16.dp),
                             horizontalAlignment = Alignment.CenterHorizontally
@@ -69,15 +69,15 @@ fun DashboardScreen(innerPadding: PaddingValues, uiDashboard: UIDashboard) {
                                         id =
                                         when (item.trending) {
                                             UICryptoFavoriteTrending.NotTrending -> {
-                                                R.drawable.baseline_arrow_drop_up_24
+                                                androidx.core.R.drawable.ic_call_answer_low
                                             }
 
                                             UICryptoFavoriteTrending.TrendingDown -> {
-                                                R.drawable.baseline_arrow_drop_down_24
+                                                androidx.core.R.drawable.ic_call_answer_low
                                             }
 
                                             UICryptoFavoriteTrending.TrendingUp -> {
-                                                R.drawable.baseline_arrow_drop_up_24
+                                                androidx.core.R.drawable.ic_call_answer_low
                                             }
                                         }
                                     ),
@@ -120,7 +120,7 @@ fun DashboardScreen(innerPadding: PaddingValues, uiDashboard: UIDashboard) {
             Text(text = "Populares")
         }
         items(uiDashboard.listOfPopular) { item ->
-            Card(elevation = 4.dp, modifier = Modifier.padding(8.dp)) {
+            Card(modifier = Modifier.padding(8.dp)) {
                 Column(
                     modifier = Modifier.padding(16.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
