@@ -1,0 +1,144 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "18c8563dfe46470593180027c8fb0cc5",
+    "entities": [
+      {
+        "tableName": "cryptos",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`cryptoId` INTEGER NOT NULL, `name` TEXT NOT NULL, `symbol` TEXT NOT NULL, `slug` TEXT NOT NULL, `cmc_rank` INTEGER NOT NULL, `circulating_supply` REAL NOT NULL, `total_supply` REAL NOT NULL, `max_supply` REAL NOT NULL, PRIMARY KEY(`cryptoId`))",
+        "fields": [
+          {
+            "fieldPath": "cryptoId",
+            "columnName": "cryptoId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "symbol",
+            "columnName": "symbol",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "slug",
+            "columnName": "slug",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "cmcRank",
+            "columnName": "cmc_rank",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "circulatingSupply",
+            "columnName": "circulating_supply",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "totalSupply",
+            "columnName": "total_supply",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "maxSupply",
+            "columnName": "max_supply",
+            "affinity": "REAL",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "cryptoId"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "prices",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`usdPriceId` INTEGER PRIMARY KEY AUTOINCREMENT, `price` REAL NOT NULL, `market_cap` REAL NOT NULL, `volume_24h` REAL NOT NULL, `percent_change_1h` REAL NOT NULL, `percent_change_24h` REAL NOT NULL, `percent_change_7d` REAL NOT NULL, `last_updated` TEXT NOT NULL, `crypto_id` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "usdPriceId",
+            "columnName": "usdPriceId",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "price",
+            "columnName": "price",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "marketCap",
+            "columnName": "market_cap",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "volume24h",
+            "columnName": "volume_24h",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "percentChange1h",
+            "columnName": "percent_change_1h",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "percentChange24h",
+            "columnName": "percent_change_24h",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "percentChange7d",
+            "columnName": "percent_change_7d",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "lastUpdated",
+            "columnName": "last_updated",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "cryptoId",
+            "columnName": "crypto_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "usdPriceId"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '18c8563dfe46470593180027c8fb0cc5')"
+    ]
+  }
+}
