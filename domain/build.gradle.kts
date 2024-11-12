@@ -41,9 +41,13 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-    implementation("com.jakewharton.timber:timber:5.0.1")
-    implementation("com.google.dagger:hilt-android:2.51.1")
-    implementation("com.squareup.retrofit2:adapter-rxjava2:2.4.0")
+    implementation(libs.converter.gson)
+    implementation(libs.adapter.rxjava2)
+    implementation(libs.rxkotlin)
+    implementation(libs.retrofit)
+    implementation (libs.gson)
 
+    implementation(libs.timber)
 
+    implementation(libs.hilt.android)
 }
