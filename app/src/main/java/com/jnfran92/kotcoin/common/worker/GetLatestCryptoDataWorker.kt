@@ -1,4 +1,4 @@
-package com.jnfran92.kotcoin.worker
+package com.jnfran92.kotcoin.common.worker
 
 import android.content.Context
 import androidx.hilt.work.HiltWorker

@@ -10,7 +10,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.work.*
 import com.jnfran92.kotcoin.R
 import com.jnfran92.kotcoin.databinding.ActivityCryptoBinding
-import com.jnfran92.kotcoin.worker.GetLatestCryptoDataWorker
+import com.jnfran92.kotcoin.common.worker.GetLatestCryptoDataWorker
 import dagger.hilt.android.AndroidEntryPoint
 //import kotlinx.android.synthetic.main.activity_crypto.*
 import timber.log.Timber

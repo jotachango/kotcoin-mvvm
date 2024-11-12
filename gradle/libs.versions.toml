@@ -27,6 +27,7 @@ workRuntime = "2.9.1"
 hiltPlugin = "2.51.1"
 roomPlugin = "2.6.1"
 safeArgsPlugin="2.7.7"
+uiTextGoogleFonts = "1.7.5"
 
 [libraries]
 adapter-rxjava2 = { module = "com.squareup.retrofit2:adapter-rxjava2", version.ref = "converterGson" }
@@ -89,6 +90,7 @@ androidx-navigation-fragment-ktx = { group = "androidx.navigation", name = "navi
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 rxkotlin = { module = "io.reactivex.rxjava2:rxkotlin", version.ref = "rxkotlin" }
 timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
+androidx-ui-text-google-fonts = { group = "androidx.compose.ui", name = "ui-text-google-fonts", version.ref = "uiTextGoogleFonts" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
