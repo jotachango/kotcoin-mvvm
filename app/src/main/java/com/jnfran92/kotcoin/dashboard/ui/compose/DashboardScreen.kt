@@ -69,15 +69,15 @@ fun DashboardScreen(innerPadding: PaddingValues, uiDashboard: UIDashboard) {
                                         id =
                                         when (item.trending) {
                                             UICryptoFavoriteTrending.NotTrending -> {
-                                                androidx.core.R.drawable.ic_call_answer_low
+                                                R.drawable.baseline_arrow_drop_up_24
                                             }
 
                                             UICryptoFavoriteTrending.TrendingDown -> {
-                                                androidx.core.R.drawable.ic_call_answer_low
+                                                R.drawable.baseline_arrow_drop_down_24
                                             }
 
                                             UICryptoFavoriteTrending.TrendingUp -> {
-                                                androidx.core.R.drawable.ic_call_answer_low
+                                                R.drawable.baseline_arrow_drop_up_24
                                             }
                                         }
                                     ),
