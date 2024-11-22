@@ -18,11 +18,8 @@ class KotcoinApp : Application(), Configuration.Provider {
         Timber.plant(Timber.DebugTree())
         Timber.d("onCreate")
     }
-
-    override fun getWorkManagerConfiguration(): Configuration {
-        Timber.d("getWorkManagerConfiguration")
-        return Configuration.Builder()
+    override val workManagerConfiguration: Configuration
+        get() = Configuration.Builder()
             .setWorkerFactory(workerFactory)
             .build()
-    }
 }

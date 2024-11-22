@@ -41,4 +41,8 @@ Status of current work and new ideas which will be implemented soon...
 - Adding MotionLayout for on-boardings 
 - Adding a MockServer!
 - Adding security wrapper API
+- Added KTS gradle ✅
+- Moved ro compose Material 3 ✅
+- Using toml libdependecy ✅
+- MIgrate to KSP from KAPT
 

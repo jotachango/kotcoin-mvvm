@@ -1,3 +1,0 @@
-include ':domain'
-include ':app', ':data'
-rootProject.name='kotcoin'

@@ -8,11 +8,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.card.MaterialCardView
 import com.jnfran92.kotcoin.R
-import com.jnfran92.kotcoin.databinding.ViewCryptoItemBinding
 import com.jnfran92.kotcoin.crypto.presentation.model.UICrypto
+import com.jnfran92.kotcoin.databinding.ViewCryptoItemBinding
 import dagger.hilt.android.qualifiers.ActivityContext
 import dagger.hilt.android.scopes.FragmentScoped
-import kotlinx.android.synthetic.main.view_crypto_item.view.*
 import javax.inject.Inject
 
 /**
@@ -43,7 +42,7 @@ class CryptoListAdapter @Inject constructor(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CryptoViewHolder {
         binding = ViewCryptoItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return CryptoViewHolder(binding.root)
+        return CryptoViewHolder(binding)
     }
 
     override fun getItemCount(): Int {
@@ -78,13 +77,13 @@ class CryptoListAdapter @Inject constructor(
         this.notifyDataSetChanged()
     }
 
-    class CryptoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val itemName: TextView = itemView.tv_cryptoItem_name
-        val itemSymbol: TextView = itemView.tv_cryptoItem_symbol
-        val itemPrice: TextView = itemView.tv_cryptoItem_price
+    class CryptoViewHolder(itemView: ViewCryptoItemBinding) : RecyclerView.ViewHolder(itemView.root) {
+        val itemName: TextView = itemView.tvCryptoItemName
+        val itemSymbol: TextView = itemView.tvCryptoItemSymbol
+        val itemPrice: TextView = itemView.tvCryptoItemPrice
 
         //        val itemMarketCap: TextView = itemView.tv_cryptoItem_markertCap
 //        val itemLastUpdate: TextView = itemView.tv_cryptoItem_lastUpdate
-        val container: MaterialCardView = itemView.mc_cryptoItem_container
+        val container: MaterialCardView = itemView.mcCryptoItemContainer
     }
 }

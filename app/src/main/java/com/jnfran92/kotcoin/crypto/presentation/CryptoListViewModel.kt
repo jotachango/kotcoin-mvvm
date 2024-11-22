@@ -1,24 +1,26 @@
 package com.jnfran92.kotcoin.crypto.presentation
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.jnfran92.domain.crypto.GetCryptoListUseCase
 import com.jnfran92.kotcoin.crypto.presentation.mapper.DomainCryptoToUIMapper
 import com.jnfran92.kotcoin.crypto.presentation.model.UICrypto
 import com.jnfran92.kotcoin.crypto.presentation.uistate.CryptoListUIState
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.rxkotlin.plusAssign
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
+import javax.inject.Inject
 
 
 /**
  * View Model for handling UI interactions and present data of Crypto objects
  * MVI formatted! data flow
  */
-class CryptoListViewModel @ViewModelInject constructor(
+@HiltViewModel
+class CryptoListViewModel @Inject constructor(
     private val getCryptoListUseCase: GetCryptoListUseCase,
     private val cryptoToUIMapper: DomainCryptoToUIMapper
 ) : ViewModel() {

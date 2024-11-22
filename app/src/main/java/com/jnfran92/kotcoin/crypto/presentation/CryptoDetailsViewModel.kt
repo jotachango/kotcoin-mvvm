@@ -1,25 +1,25 @@
 package com.jnfran92.kotcoin.crypto.presentation
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.jnfran92.domain.crypto.GetCryptoDetailsUseCase
 import com.jnfran92.kotcoin.crypto.presentation.mapper.DomainCryptoDetailsToUIMapper
 import com.jnfran92.kotcoin.crypto.presentation.model.UICryptoDetails
 import com.jnfran92.kotcoin.crypto.presentation.uistate.CryptoDetailsUIState
-import dagger.hilt.android.scopes.FragmentScoped
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.rxkotlin.plusAssign
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
+import javax.inject.Inject
 
 /**
  * View Model for handling UI interactions and present data of Crypto detail object.
  * MVI formatted! data flow
  */
-@FragmentScoped
-class CryptoDetailsViewModel @ViewModelInject constructor(
+@HiltViewModel
+class CryptoDetailsViewModel @Inject constructor(
     private val getCryptoDetailsUseCase: GetCryptoDetailsUseCase,
     private val cryptoDetailsToUIMapper: DomainCryptoDetailsToUIMapper
 ) : ViewModel() {
