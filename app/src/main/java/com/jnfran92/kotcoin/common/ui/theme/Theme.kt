@@ -233,4 +233,3 @@ fun KotcoinAppTheme(
     content = content
   )
 }
-

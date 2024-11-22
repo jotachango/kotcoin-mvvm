@@ -4,6 +4,7 @@ import android.content.res.Configuration
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Menu
@@ -21,6 +22,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.jnfran92.kotcoin.common.ui.theme.KotcoinAppTheme
 import com.jnfran92.kotcoin.dashboard.presentation.model.UIDashboard
 import com.jnfran92.kotcoin.dashboard.ui.compose.DashboardScreen
@@ -53,7 +55,7 @@ fun DashboardView() {
                 },
                 scrollBehavior = scrollBehavior,
             )
-        },
+        }
     ) { innerPadding ->
         DashboardScreen(
             innerPadding = innerPadding,
