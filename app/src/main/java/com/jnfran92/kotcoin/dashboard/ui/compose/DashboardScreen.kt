@@ -62,7 +62,7 @@ fun DashboardScreen(innerPadding: PaddingValues, uiDashboard: UIDashboard) {
                 Spacer(modifier = Modifier.width(4.dp))
                 Text(
                     text = "Favoritos",
-                    fontSize = MaterialTheme.typography.titleLarge.fontSize
+                    fontSize = MaterialTheme.typography.titleLarge.fontSize,
                 )
             }
 
