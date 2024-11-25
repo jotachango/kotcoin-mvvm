@@ -5,7 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -22,50 +22,27 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.viewinterop.AndroidView
-import com.github.mikephil.charting.charts.LineChart
-import com.github.mikephil.charting.components.AxisBase
-import com.github.mikephil.charting.components.XAxis
-import com.github.mikephil.charting.data.Entry
-import com.github.mikephil.charting.data.LineData
-import com.github.mikephil.charting.data.LineDataSet
-import com.github.mikephil.charting.formatter.ValueFormatter
 import com.jnfran92.kotcoin.R
 import com.jnfran92.kotcoin.common.ui.theme.KotcoinAppTheme
-import com.jnfran92.kotcoin.crypto.presentation.model.UIPrice
+import com.jnfran92.kotcoin.dashboard.presentation.model.UICryptoFavorite
 import com.jnfran92.kotcoin.dashboard.presentation.model.UICryptoFavoriteTrending
 import com.jnfran92.kotcoin.dashboard.presentation.model.UIDashboard
-import java.text.SimpleDateFormat
-import java.util.Locale
 
 @Composable
 fun DashboardScreen(innerPadding: PaddingValues, uiDashboard: UIDashboard) {
     LazyColumn(
         modifier = Modifier
             .padding(innerPadding)
+            .padding(8.dp)
             .fillMaxWidth()
     ) {
         item {
-            Row(
-                modifier = Modifier.padding(8.dp)
-            ) {
-                Text(
-                    text = "❤️",
-                    fontSize = MaterialTheme.typography.titleLarge.fontSize
-                )
-                Spacer(modifier = Modifier.width(4.dp))
-                Text(
-                    text = "Favoritos",
-                    fontSize = MaterialTheme.typography.titleLarge.fontSize,
-                )
-            }
-
+            DashboardSectionTitle("⭐", "Favorites")
         }
 
         item {
@@ -87,41 +64,7 @@ fun DashboardScreen(innerPadding: PaddingValues, uiDashboard: UIDashboard) {
                                     fontWeight = FontWeight.Bold,
                                     modifier = Modifier.padding(8.dp)
                                 )
-                                Image(
-                                    painter = painterResource(
-                                        id =
-                                        when (item.trending) {
-                                            UICryptoFavoriteTrending.NotTrending -> {
-                                                R.drawable.baseline_arrow_drop_up_24
-                                            }
-
-                                            UICryptoFavoriteTrending.TrendingDown -> {
-                                                R.drawable.baseline_arrow_drop_down_24
-                                            }
-
-                                            UICryptoFavoriteTrending.TrendingUp -> {
-                                                R.drawable.baseline_arrow_drop_up_24
-                                            }
-                                        }
-                                    ),
-                                    contentDescription = "trending",
-                                    modifier = Modifier.size(30.dp),
-                                    colorFilter = ColorFilter.tint(
-                                        when (item.trending) {
-                                            UICryptoFavoriteTrending.NotTrending -> {
-                                                MaterialTheme.colorScheme.tertiary
-                                            }
-
-                                            UICryptoFavoriteTrending.TrendingDown -> {
-                                                Color.Red
-                                            }
-
-                                            UICryptoFavoriteTrending.TrendingUp -> {
-                                                Color.Green
-                                            }
-                                        }
-                                    )
-                                )
+                                TrendingImage(item.trending)
                             }
                             Text(
                                 text = item.symbol,
@@ -140,123 +83,97 @@ fun DashboardScreen(innerPadding: PaddingValues, uiDashboard: UIDashboard) {
         }
 
         item {
-            Row(
-                modifier = Modifier.padding(8.dp)
-            ) {
-                Text(
-                    text = "⭐",
-                    fontSize = MaterialTheme.typography.titleLarge.fontSize
-                )
-                Spacer(modifier = Modifier.width(4.dp))
-                Text(
-                    text = "Populares",
-                    fontSize = MaterialTheme.typography.titleLarge.fontSize
-                )
-            }
+            DashboardSectionTitle("📈", "Populars")
         }
         items(uiDashboard.listOfPopular) { item ->
             Card(
                 modifier = Modifier
                     .padding(8.dp)
                     .padding(bottom = 8.dp)
+                    .height(180.dp)
             ) {
-                Column(
-                    modifier = Modifier.padding(16.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally
+                Row(
+                    modifier = Modifier.padding(8.dp),
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Text(
-                        text = item.symbol,
-                        fontSize = 15.sp,
-                        fontWeight = FontWeight.Bold
-                    )
-                    Text(
-                        text = item.name,
-                        fontSize = 15.sp,
-                        fontWeight = FontWeight.Light
-                    )
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        LineChartCompose(item.historicalUIPrice)
+                    Column(horizontalAlignment = Alignment.CenterHorizontally,
+                        modifier = Modifier.width(80.dp)) {
+                        Text(
+                            text = item.symbol,
+                            fontSize = 15.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                        Text(
+                            text = item.name,
+                            fontSize = 15.sp,
+                            fontWeight = FontWeight.Light
+                        )
                     }
+                    PopularLineChartView(item.historicalUIPrice)
                 }
             }
         }
     }
 }
 
-
 @Composable
-fun LineChartCompose(
-    historicData: List<UIPrice>
-) {
-    val textColor = MaterialTheme.colorScheme.secondary.toArgb()
-    val linesColor = MaterialTheme.colorScheme.tertiary.toArgb()
-    AndroidView(
-        factory = { context ->
-            LineChart(context).apply {
-                // Customize the chart here (e.g., set colors, labels, etc.)
-                val entries = historicData.mapIndexed { index, uiPrice ->
-                    Entry(index.toFloat(), uiPrice.price.toFloat())
+private fun TrendingImage(itemTrending: UICryptoFavoriteTrending) {
+    Image(
+        painter = painterResource(
+            id =
+            when (itemTrending) {
+                UICryptoFavoriteTrending.NotTrending -> {
+                    R.drawable.baseline_arrow_drop_up_24
                 }
 
-                val dataSet = LineDataSet(entries, null)
-                dataSet.mode = LineDataSet.Mode.CUBIC_BEZIER
-                dataSet.setDrawFilled(true)
-                dataSet.setDrawCircles(false)
-                dataSet.lineWidth = 3.0f
-                dataSet.valueTextSize = 0.0f
-                dataSet.setColor(linesColor)
-                dataSet.fillColor = linesColor
-                dataSet.setDrawValues(false)
-
-                val lineData = LineData(dataSet)
-
-
-                data = lineData
-                legend.isEnabled = false
-                description = null
-
-                xAxis.setDrawGridLines(false)
-                axisLeft.setDrawGridLines(false)
-                axisRight.setDrawGridLines(false)
-
-                xAxis.setDrawAxisLine(false)
-                axisLeft.setDrawAxisLine(false)
-                axisRight.setDrawAxisLine(false)
-                axisRight.isEnabled = false
-
-                axisLeft.textColor = textColor
-                xAxis.textColor = textColor
-                legend.textColor = textColor
-
-
-                val formatter = SimpleDateFormat("yyyy-mm-dd", Locale.US)
-
-                xAxis.valueFormatter = object : ValueFormatter() {
-                    override fun getAxisLabel(value: Float, axis: AxisBase?): String {
-                        val date = formatter.parse(historicData[value.toInt()].lastUpdated)
-                        return formatter.format(date ?: "")
-                    }
+                UICryptoFavoriteTrending.TrendingDown -> {
+                    R.drawable.baseline_arrow_drop_down_24
                 }
-                xAxis.position = XAxis.XAxisPosition.BOTTOM
-                xAxis.labelRotationAngle = 45.0f
-                xAxis.isGranularityEnabled = true
-                xAxis.granularity = 7f
-                extraBottomOffset = 40f
-                setTouchEnabled(true)
-                setDrawBorders(false)
-                setDrawGridBackground(false)
-                invalidate()
 
+                UICryptoFavoriteTrending.TrendingUp -> {
+                    R.drawable.baseline_arrow_drop_up_24
+                }
             }
-        },
-        modifier = Modifier
-            .fillMaxSize()
-            .height(300.dp)
-            .padding(10.dp)
+        ),
+        contentDescription = "trending",
+        modifier = Modifier.size(35.dp),
+        colorFilter = ColorFilter.tint(
+            when (itemTrending) {
+                UICryptoFavoriteTrending.NotTrending -> {
+                    MaterialTheme.colorScheme.tertiary
+                }
+
+                UICryptoFavoriteTrending.TrendingDown -> {
+                    Color.Red
+                }
+
+                UICryptoFavoriteTrending.TrendingUp -> {
+                    Color.Green
+                }
+            }
+        )
     )
 }
 
-@Preview
+
+@Composable
+private fun DashboardSectionTitle(emoji: String, title: String) {
+    Row(
+        modifier = Modifier.padding(8.dp)
+    ) {
+        Text(
+            text = emoji,
+            fontSize = MaterialTheme.typography.titleLarge.fontSize
+        )
+        Spacer(modifier = Modifier.width(4.dp))
+        Text(
+            text = title,
+            fontSize = MaterialTheme.typography.titleLarge.fontSize,
+        )
+    }
+}
+
+@Preview(backgroundColor = 0xFFFFFFFF)
 @Composable
 fun ComposablePreview() {
     KotcoinAppTheme {
