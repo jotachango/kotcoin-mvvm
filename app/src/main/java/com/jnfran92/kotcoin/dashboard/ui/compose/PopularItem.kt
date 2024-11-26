@@ -36,12 +36,12 @@ fun PopularItem(item: UICryptoPopular) {
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier.width(90.dp)
             ) {
-                Row {
+                Row(verticalAlignment = Alignment.CenterVertically) {
                     Text(
                         text = "$${"%.${1}f".format(item.price.price / 1000)}K",
                         fontSize = 18.sp,
                         fontWeight = FontWeight.Normal,
-                        modifier = Modifier.padding(8.dp)
+                        modifier = Modifier.padding(2.dp)
                     )
                     TrendingImage(item.trending)
                 }
