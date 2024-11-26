@@ -2,14 +2,11 @@ package com.jnfran92.kotcoin.dashboard.ui.compose
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.data.Entry
@@ -20,7 +17,7 @@ import com.jnfran92.kotcoin.crypto.presentation.model.UIPrice
 import com.jnfran92.kotcoin.dashboard.presentation.model.UIDashboard
 
 @Composable
-fun PopularLineChartView(
+fun PopularLineChart(
     historicData: List<UIPrice>
 ) {
     val textColor = MaterialTheme.colorScheme.secondary.toArgb()
@@ -84,7 +81,7 @@ fun PopularLineChartView(
 @Composable
 fun ChartPreview() {
     KotcoinAppTheme {
-        PopularLineChartView(
+        PopularLineChart(
             historicData = UIDashboard.DUMMY.listOfPopular.first().historicalUIPrice
         )
     }

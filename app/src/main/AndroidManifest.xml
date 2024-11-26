@@ -12,7 +12,7 @@
         android:theme="@style/AppTheme.NoActionBar"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".dashboard.ui.DashboardActivity"
+            android:name=".dashboard.ui.activity.DashboardActivity"
             android:exported="true"
             android:label="@string/title_activity_dashboard">
             <intent-filter>
