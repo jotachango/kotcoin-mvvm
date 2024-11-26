@@ -16,7 +16,7 @@ import com.jnfran92.kotcoin.dashboard.presentation.model.UICryptoFavoriteTrendin
 import com.jnfran92.kotcoin.dashboard.presentation.model.UIDashboard
 
 @Composable
-fun TrendingImage(itemTrending: UICryptoFavoriteTrending) {
+fun TrendingImage(itemTrending: UICryptoFavoriteTrending,) {
     Image(
         painter = painterResource(
             id =

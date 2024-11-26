@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Card
 import androidx.compose.material3.Text
@@ -35,6 +36,15 @@ fun PopularItem(item: UICryptoPopular) {
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier.width(90.dp)
             ) {
+                Row {
+                    Text(
+                        text = "$${"%.${1}f".format(item.price.price / 1000)}K",
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.Normal,
+                        modifier = Modifier.padding(8.dp)
+                    )
+                    TrendingImage(item.trending)
+                }
                 Text(
                     text = item.symbol,
                     fontSize = 15.sp,
