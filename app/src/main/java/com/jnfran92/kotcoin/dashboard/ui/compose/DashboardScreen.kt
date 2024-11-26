@@ -15,8 +15,10 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -52,6 +54,7 @@ fun DashboardScreen(innerPadding: PaddingValues, uiDashboard: UIDashboard) {
                         modifier = Modifier
                             .padding(8.dp)
                             .padding(bottom = 16.dp)
+                            .width(170.dp)
                     ) {
                         Column(
                             modifier = Modifier.padding(16.dp),
@@ -90,14 +93,14 @@ fun DashboardScreen(innerPadding: PaddingValues, uiDashboard: UIDashboard) {
                 modifier = Modifier
                     .padding(8.dp)
                     .padding(bottom = 8.dp)
-                    .height(180.dp)
+                    .height(150.dp)
             ) {
                 Row(
-                    modifier = Modifier.padding(8.dp),
+                    modifier = Modifier.padding(4.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Column(horizontalAlignment = Alignment.CenterHorizontally,
-                        modifier = Modifier.width(80.dp)) {
+                        modifier = Modifier.width(90.dp)) {
                         Text(
                             text = item.symbol,
                             fontSize = 15.sp,
@@ -109,6 +112,7 @@ fun DashboardScreen(innerPadding: PaddingValues, uiDashboard: UIDashboard) {
                             fontWeight = FontWeight.Light
                         )
                     }
+                    VerticalDivider(Modifier.padding(8.dp))
                     PopularLineChartView(item.historicalUIPrice)
                 }
             }

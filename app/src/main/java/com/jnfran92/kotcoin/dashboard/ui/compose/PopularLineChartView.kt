@@ -37,7 +37,7 @@ fun PopularLineChartView(
                 dataSet.mode = LineDataSet.Mode.CUBIC_BEZIER
                 dataSet.setDrawFilled(true)
                 dataSet.setDrawCircles(false)
-                dataSet.lineWidth = 2.0f
+                dataSet.lineWidth = 1.0f
                 dataSet.valueTextSize = 0.0f
                 dataSet.setColor(linesColor)
                 dataSet.fillColor = linesColor
@@ -67,20 +67,6 @@ fun PopularLineChartView(
                 xAxis.textColor = textColor
                 legend.textColor = textColor
 
-
-//                val formatter = SimpleDateFormat("yyyy-mm-dd", Locale.US)
-
-//                xAxis.valueFormatter = object : ValueFormatter() {
-//                    override fun getAxisLabel(value: Float, axis: AxisBase?): String {
-//                        val date = formatter.parse(historicData[value.toInt()].lastUpdated)
-//                        return formatter.format(date ?: "")
-//                    }
-//                }
-//                xAxis.position = XAxis.XAxisPosition.BOTTOM
-//                xAxis.labelRotationAngle = 45.0f
-//                xAxis.isGranularityEnabled = true
-//                xAxis.granularity = 7f
-//                extraBottomOffset = 40f
                 setTouchEnabled(false)
                 setDrawBorders(false)
                 setDrawGridBackground(false)

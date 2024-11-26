@@ -4,6 +4,7 @@ import com.jnfran92.kotcoin.crypto.presentation.model.UIPrice
 import kotlin.math.PI
 import kotlin.math.pow
 import kotlin.math.sin
+import kotlin.math.tan
 
 data class UIDashboard(
     val listOfFavorites: List<UICryptoFavorite> = listOf(),
@@ -88,6 +89,23 @@ fun getDummyData(): UIDashboard {
             symbol = "ETH",
             historicalUIPrice = List(20) { index ->
                 val value = sin(2 * PI * index / 20).pow(2)
+                UIPrice(
+                    price = value,
+                    marketCap = 226700000000.0,
+                    volume24h = 7450000000.0,
+                    percentChange1h = -0.02,
+                    percentChange24h = -0.3,
+                    percentChange7d = 0.5,
+                    lastUpdated = "2023-07-28T14:50:00.000Z"
+                )
+            }
+        ),
+        UICryptoPopular(
+            id = 2,
+            name = "Another",
+            symbol = "ANT",
+            historicalUIPrice = List(20) { index ->
+                val value = tan(2 * PI * index / 20).pow(2)
                 UIPrice(
                     price = value,
                     marketCap = 226700000000.0,
