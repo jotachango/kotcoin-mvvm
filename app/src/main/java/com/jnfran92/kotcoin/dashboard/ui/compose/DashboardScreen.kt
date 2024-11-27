@@ -12,6 +12,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.jnfran92.kotcoin.common.ui.theme.KotcoinAppTheme
 import com.jnfran92.kotcoin.dashboard.presentation.model.UIDashboard
+import com.jnfran92.kotcoin.dashboard.ui.compose.child.DashboardSectionTitle
+import com.jnfran92.kotcoin.dashboard.ui.compose.child.FavoriteItem
+import com.jnfran92.kotcoin.dashboard.ui.compose.child.PopularItem
 
 @Composable
 fun DashboardScreen(innerPadding: PaddingValues, uiDashboard: UIDashboard) {
