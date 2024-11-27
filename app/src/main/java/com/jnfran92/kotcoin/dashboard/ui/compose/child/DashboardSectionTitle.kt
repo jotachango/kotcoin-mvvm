@@ -1,4 +1,4 @@
-package com.jnfran92.kotcoin.dashboard.ui.compose
+package com.jnfran92.kotcoin.dashboard.ui.compose.child
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
