@@ -18,12 +18,9 @@ import com.jnfran92.kotcoin.dashboard.presentation.model.UICryptoFavorite
 import com.jnfran92.kotcoin.dashboard.presentation.model.UIDashboard
 
 @Composable
-fun FavoriteItem(item: UICryptoFavorite) {
+fun FavoriteItem(item: UICryptoFavorite, modifier: Modifier) {
     Card(
-        modifier = Modifier
-            .padding(8.dp)
-            .padding(bottom = 16.dp)
-            .width(170.dp)
+        modifier = modifier
     ) {
         Column(
             modifier = Modifier.padding(16.dp),
@@ -56,6 +53,9 @@ fun FavoriteItem(item: UICryptoFavorite) {
 @Composable
 fun FavoriteItemPreview() {
     KotcoinAppTheme {
-        FavoriteItem(item = UIDashboard.DUMMY.listOfFavorites[0])
+        FavoriteItem(item = UIDashboard.DUMMY.listOfFavorites[0], modifier = Modifier
+            .padding(8.dp)
+            .padding(bottom = 16.dp)
+            .width(170.dp))
     }
 }

@@ -23,6 +23,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.jnfran92.kotcoin.R
 import com.jnfran92.kotcoin.common.ui.theme.KotcoinAppTheme
 import com.jnfran92.kotcoin.dashboard.presentation.model.UIDashboard
+import com.jnfran92.kotcoin.dashboard.presentation.model.UIDashboardS2
+import com.jnfran92.kotcoin.dashboard.presentation.uistate.DashboardS1UIState
+import com.jnfran92.kotcoin.dashboard.presentation.uistate.DashboardS2UIState
 import com.jnfran92.kotcoin.dashboard.ui.compose.DashboardScreen
 import timber.log.Timber
 
@@ -80,7 +83,10 @@ fun DashboardView(onDarkThemeChange: (Boolean) -> Unit = {}) {
     ) { innerPadding ->
         DashboardScreen(
             innerPadding = innerPadding,
-            uiDashboard = UIDashboard.DUMMY
+//            dashboardS1UIState = DashboardS1UIState.ShowErrorRetryView(Exception()),
+            dashboardS1UIState = DashboardS1UIState.ShowLoadingView,
+//            dashboardS2UIState = DashboardS2UIState.ShowDataView(UIDashboardS2.DUMMY)
+            dashboardS2UIState = DashboardS2UIState.ShowErrorRetryView(Exception())
         )
     }
 }
