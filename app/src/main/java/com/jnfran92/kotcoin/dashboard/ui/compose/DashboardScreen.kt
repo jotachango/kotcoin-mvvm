@@ -167,11 +167,11 @@ fun AnimatedLoadingPlaceholder() {
 
     // Animación de opacidad entre 0.3f y 1f
     val alphaValue by infiniteTransition.animateFloat(
-        initialValue = 0.1f,
+        initialValue = 0.6f,
         targetValue = 0.8f,
         animationSpec = infiniteRepeatable(
             animation = tween(
-                durationMillis = 1000,
+                durationMillis = 100,
                 easing = FastOutSlowInEasing
             ),
             repeatMode = RepeatMode.Reverse
@@ -194,8 +194,8 @@ fun AnimatedLoadingPlaceholder() {
                     .background(
                         brush = Brush.linearGradient(
                             colors = listOf(
-                                Color.Gray.copy(alpha = 0.1f),
-                                Color.LightGray.copy(alpha = 0.9f)
+                                MaterialTheme.colorScheme.inverseOnSurface.copy(alpha = 0.1f),
+                                MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.9f)
                             )
                         )
                     )
