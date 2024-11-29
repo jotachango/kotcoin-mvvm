@@ -1,4 +1,4 @@
-package com.jnfran92.kotcoin.dashboard.ui.compose.child
+package com.jnfran92.kotcoin.dashboard.ui.compose.children
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth

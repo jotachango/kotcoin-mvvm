@@ -26,6 +26,11 @@ class DashboardViewModel : ViewModel() {
         MutableStateFlow<DashboardS2UIState>(DashboardS2UIState.ShowDefaultView)
     val viewStateS2: StateFlow<DashboardS2UIState> = _viewStateS2
 
+    init {
+        Timber.d("init: DashboardViewModel")
+        loadData()
+    }
+
     fun loadSection1() {
         Timber.d("loadSection1: ")
         viewModelScope.launch {
@@ -34,6 +39,7 @@ class DashboardViewModel : ViewModel() {
                 .flowOn(Dispatchers.IO)
                 .catch {
                     Timber.d("loadSection1: error: $it")
+                    _viewStateS1.value = DashboardS1UIState.ShowErrorRetryView(it)
                 }
                 .collect {
                     Timber.d("loadSection1: success: $it")
@@ -50,6 +56,7 @@ class DashboardViewModel : ViewModel() {
                 .flowOn(Dispatchers.IO)
                 .catch {
                     Timber.d("loadSection2: error: $it")
+                    _viewStateS2.value = DashboardS2UIState.ShowErrorRetryView(it)
                 }
                 .collect {
                     Timber.d("loadSection2: success: $it")
@@ -64,12 +71,13 @@ class DashboardViewModel : ViewModel() {
     }
 
     fun getSection1UseCase() = flow<UIDashboardS1> {
-        delay(1000)
+        delay(2000)
         emit(UIDashboardS1.DUMMY)
     }
 
     fun getSection2UseCase() = flow<UIDashboardS2> {
-        delay(1000)
+        delay(2000)
+//        throw Exception("Error")
         emit(UIDashboardS2.DUMMY)
     }
 }
