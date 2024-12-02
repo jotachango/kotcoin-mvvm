@@ -2,10 +2,17 @@ package com.jnfran92.kotcoin.dashboard.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.jnfran92.domain.crypto.GetCryptoDetailsUseCase
+import com.jnfran92.domain.crypto.GetCryptoListUseCase
+import com.jnfran92.kotcoin.crypto.presentation.model.UIPrice
+import com.jnfran92.kotcoin.dashboard.presentation.model.UICryptoFavorite
+import com.jnfran92.kotcoin.dashboard.presentation.model.UICryptoFavoriteTrending
+import com.jnfran92.kotcoin.dashboard.presentation.model.UICryptoPopular
 import com.jnfran92.kotcoin.dashboard.presentation.model.UIDashboardS1
 import com.jnfran92.kotcoin.dashboard.presentation.model.UIDashboardS2
 import com.jnfran92.kotcoin.dashboard.presentation.uistate.DashboardS1UIState
 import com.jnfran92.kotcoin.dashboard.presentation.uistate.DashboardS2UIState
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,8 +22,13 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import javax.inject.Inject
 
-class DashboardViewModel : ViewModel() {
+@HiltViewModel
+class DashboardViewModel @Inject constructor(
+    private val getCryptoListUseCase: GetCryptoListUseCase,
+    private val getCryptoDetailsUseCase: GetCryptoDetailsUseCase
+) : ViewModel() {
 
     private val _viewStateS1 =
         MutableStateFlow<DashboardS1UIState>(DashboardS1UIState.ShowDefaultView)
@@ -71,13 +83,85 @@ class DashboardViewModel : ViewModel() {
     }
 
     fun getSection1UseCase() = flow<UIDashboardS1> {
-        delay(2000)
-        emit(UIDashboardS1.DUMMY)
+//        delay(2000)
+        Timber.d("getSection1UseCase: ")
+        val data = getCryptoListUseCase.invoke().blockingGet()
+        Timber.d("getSection1UseCase: data $data")
+//        emit(UIDashboardS1.DUMMY)
+
+        val out = data.map {
+            UICryptoFavorite(
+                id = it.id.toInt(),
+                name = it.name,
+                symbol = it.symbol,
+                price = UIPrice(
+                    price = it.usdPrice.price,
+                    marketCap = it.usdPrice.marketCap,
+                    volume24h = it.usdPrice.volume24h,
+                    percentChange1h = it.usdPrice.percentChange1h,
+                    percentChange24h = it.usdPrice.percentChange24h,
+                    percentChange7d = it.usdPrice.percentChange7d,
+                    lastUpdated = it.usdPrice.lastUpdated
+                ),
+                trending = if (it.usdPrice.percentChange24h > 0) {
+                    UICryptoFavoriteTrending.TrendingUp
+                } else {
+                    UICryptoFavoriteTrending.TrendingDown
+                }
+            )
+        }
+        emit(
+            UIDashboardS1(
+                listOfFavorites = out
+            )
+        )
     }
 
     fun getSection2UseCase() = flow<UIDashboardS2> {
-        delay(2000)
+//        delay(1000)
 //        throw Exception("Error")
-        emit(UIDashboardS2.DUMMY)
+//        emit(UIDashboardS2.DUMMY)
+        val data = getCryptoListUseCase.invoke().blockingGet().subList(0, 5)
+        val out = data.map {
+            UICryptoPopular(
+                id = it.id.toInt(),
+                name = it.name,
+                symbol = it.symbol,
+                price = UIPrice(
+                    price = it.usdPrice.price,
+                    marketCap = it.usdPrice.marketCap,
+                    volume24h = it.usdPrice.volume24h,
+                    percentChange1h = it.usdPrice.percentChange1h,
+                    percentChange24h = it.usdPrice.percentChange24h,
+                    percentChange7d = it.usdPrice.percentChange7d,
+                    lastUpdated = it.usdPrice.lastUpdated
+                ),
+                trending = if (it.usdPrice.percentChange24h > 0) {
+                    UICryptoFavoriteTrending.TrendingUp
+                } else {
+                    UICryptoFavoriteTrending.TrendingDown
+                },
+                historicalUIPrice = getCryptoDetailsUseCase.invoke(it.id)
+                    .blockingGet().usdPrices.map {
+                    UIPrice(
+                        price = it.price,
+                        marketCap = it.marketCap,
+                        volume24h = it.volume24h,
+                        percentChange1h = it.percentChange1h,
+                        percentChange24h = it.percentChange24h,
+                        percentChange7d = it.percentChange7d,
+                        lastUpdated = it.lastUpdated
+                    )
+                }
+            )
+
+        }
+
+
+        emit(
+            UIDashboardS2(
+                listOfPopular = out
+            )
+        )
     }
 }

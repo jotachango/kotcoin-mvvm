@@ -39,7 +39,7 @@ fun FavoriteItem(
             ) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Text(
-                        text = "$${"%.${1}f".format(item.price.price / 1000)}K",
+                        text = "$${"%.${1}f".format(item.price.price / 1000)}",
                         fontSize = 30.sp,
                         fontWeight = FontWeight.Bold,
                         modifier = Modifier.padding(8.dp)

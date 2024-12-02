@@ -16,7 +16,7 @@ fun getAlphaBrush(alphaValue: Float): Brush {
     return Brush.linearGradient(
         colors = listOf(
             MaterialTheme.colorScheme.secondary.copy(alpha = 0f + alphaValue),
-            MaterialTheme.colorScheme.tertiary.copy(alpha = 1f - alphaValue)
+            MaterialTheme.colorScheme.primary.copy(alpha = 1f - alphaValue)
         )
     )
 }

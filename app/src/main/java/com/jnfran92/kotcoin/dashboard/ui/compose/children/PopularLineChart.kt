@@ -34,7 +34,7 @@ fun PopularLineChart(
                 dataSet.mode = LineDataSet.Mode.CUBIC_BEZIER
                 dataSet.setDrawFilled(true)
                 dataSet.setDrawCircles(false)
-                dataSet.lineWidth = 1.0f
+                dataSet.lineWidth = 2.0f
                 dataSet.valueTextSize = 0.0f
                 dataSet.setColor(linesColor)
                 dataSet.fillColor = linesColor
