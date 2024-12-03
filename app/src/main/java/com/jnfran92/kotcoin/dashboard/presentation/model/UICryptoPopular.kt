@@ -6,7 +6,7 @@ data class UICryptoPopular(
     val id: Int,
     val name: String,
     val symbol: String,
-    val price: UIPrice,
+    val usdPrice: Double,
     val trending: UICryptoFavoriteTrending,
-    val historicalUIPrice: List<UIPrice>
+    val historicalUIPrice: List<Double>
 )

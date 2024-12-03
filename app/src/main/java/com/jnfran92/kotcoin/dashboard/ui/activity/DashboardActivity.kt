@@ -21,20 +21,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.fragment.app.viewModels
 import com.jnfran92.kotcoin.R
 import com.jnfran92.kotcoin.common.ui.theme.KotcoinAppTheme
-import com.jnfran92.kotcoin.crypto.presentation.CryptoDetailsViewModel
 import com.jnfran92.kotcoin.dashboard.presentation.DashboardViewModel
-import com.jnfran92.kotcoin.dashboard.presentation.model.UIDashboard
-import com.jnfran92.kotcoin.dashboard.presentation.model.UIDashboardS2
-import com.jnfran92.kotcoin.dashboard.presentation.uistate.DashboardS1UIState
-import com.jnfran92.kotcoin.dashboard.presentation.uistate.DashboardS2UIState
 import com.jnfran92.kotcoin.dashboard.ui.compose.DashboardScreen
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class DashboardActivity : ComponentActivity() {

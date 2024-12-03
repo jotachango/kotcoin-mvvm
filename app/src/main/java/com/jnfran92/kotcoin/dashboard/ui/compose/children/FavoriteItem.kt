@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.jnfran92.kotcoin.common.ui.theme.KotcoinAppTheme
 import com.jnfran92.kotcoin.dashboard.presentation.model.UICryptoFavorite
-import com.jnfran92.kotcoin.dashboard.presentation.model.UIDashboard
+import com.jnfran92.kotcoin.dashboard.presentation.model.UIDashboardS1
 import com.jnfran92.kotcoin.dashboard.ui.compose.animation.getAlphaBrush
 
 @Composable
@@ -39,7 +39,7 @@ fun FavoriteItem(
             ) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Text(
-                        text = "$${"%.${1}f".format(item.price.price / 1000)}",
+                        text = "$${"%.${1}f".format(item.usdPrice / 1000)}",
                         fontSize = 30.sp,
                         fontWeight = FontWeight.Bold,
                         modifier = Modifier.padding(8.dp)
@@ -75,7 +75,7 @@ fun FavoriteItem(
 fun FavoriteItemPreview() {
     KotcoinAppTheme {
         FavoriteItem(
-            item = UIDashboard.DUMMY.listOfFavorites[0], modifier = Modifier
+            item = UIDashboardS1.DUMMY.listOfFavorites[0], modifier = Modifier
                 .padding(8.dp)
                 .padding(bottom = 16.dp)
                 .width(170.dp)

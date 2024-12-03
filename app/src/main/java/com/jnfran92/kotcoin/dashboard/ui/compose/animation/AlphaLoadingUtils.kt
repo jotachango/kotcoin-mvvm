@@ -15,7 +15,7 @@ import androidx.compose.ui.graphics.Brush
 fun getAlphaBrush(alphaValue: Float): Brush {
     return Brush.linearGradient(
         colors = listOf(
-            MaterialTheme.colorScheme.secondary.copy(alpha = 0f + alphaValue),
+            MaterialTheme.colorScheme.primary.copy(alpha = 0f + alphaValue),
             MaterialTheme.colorScheme.primary.copy(alpha = 1f - alphaValue)
         )
     )
@@ -26,7 +26,7 @@ fun getLoadingAlphaAnimation(label: String): Float {
     val infiniteTransition = rememberInfiniteTransition(label = label)
     val alphaValue by infiniteTransition.animateFloat(
         initialValue = 0.1f,
-        targetValue = 1.0f,
+        targetValue = 0.9f,
         animationSpec = infiniteRepeatable(
             animation = tween(
                 durationMillis = 800,

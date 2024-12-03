@@ -13,12 +13,11 @@ import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.jnfran92.kotcoin.common.ui.theme.KotcoinAppTheme
-import com.jnfran92.kotcoin.crypto.presentation.model.UIPrice
-import com.jnfran92.kotcoin.dashboard.presentation.model.UIDashboard
+import com.jnfran92.kotcoin.dashboard.presentation.model.UIDashboardS2
 
 @Composable
 fun PopularLineChart(
-    historicData: List<UIPrice>
+    historicData: List<Double>
 ) {
     val textColor = MaterialTheme.colorScheme.secondary.toArgb()
     val linesColor = MaterialTheme.colorScheme.tertiary.toArgb()
@@ -27,7 +26,7 @@ fun PopularLineChart(
             LineChart(context).apply {
                 // Customize the chart here (e.g., set colors, labels, etc.)
                 val entries = historicData.mapIndexed { index, uiPrice ->
-                    Entry(index.toFloat(), uiPrice.price.toFloat())
+                    Entry(index.toFloat(), uiPrice.toFloat())
                 }
 
                 val dataSet = LineDataSet(entries, null)
@@ -82,7 +81,7 @@ fun PopularLineChart(
 fun ChartPreview() {
     KotcoinAppTheme {
         PopularLineChart(
-            historicData = UIDashboard.DUMMY.listOfPopular.first().historicalUIPrice
+            historicData = UIDashboardS2.DUMMY.listOfPopular.first().historicalUIPrice
         )
     }
 }

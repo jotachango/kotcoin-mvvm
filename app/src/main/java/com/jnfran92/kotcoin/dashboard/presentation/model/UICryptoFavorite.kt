@@ -6,6 +6,6 @@ data class UICryptoFavorite(
     val id: Int,
     val name: String,
     val symbol: String,
-    val price: UIPrice,
+    val usdPrice: Double,
     val trending: UICryptoFavoriteTrending
 )

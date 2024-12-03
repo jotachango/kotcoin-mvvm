@@ -13,7 +13,7 @@ import androidx.compose.ui.unit.dp
 import com.jnfran92.kotcoin.R
 import com.jnfran92.kotcoin.common.ui.theme.KotcoinAppTheme
 import com.jnfran92.kotcoin.dashboard.presentation.model.UICryptoFavoriteTrending
-import com.jnfran92.kotcoin.dashboard.presentation.model.UIDashboard
+import com.jnfran92.kotcoin.dashboard.presentation.model.UIDashboardS1
 
 @Composable
 fun TrendingImage(itemTrending: UICryptoFavoriteTrending,) {
@@ -58,6 +58,6 @@ fun TrendingImage(itemTrending: UICryptoFavoriteTrending,) {
 @Composable
 fun TrendingImagePreview() {
     KotcoinAppTheme {
-        TrendingImage(itemTrending = UIDashboard.DUMMY.listOfFavorites[0].trending)
+        TrendingImage(itemTrending = UIDashboardS1.DUMMY.listOfFavorites[0].trending)
     }
 }

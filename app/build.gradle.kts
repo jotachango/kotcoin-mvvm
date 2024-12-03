@@ -34,6 +34,28 @@ android {
             )
         }
     }
+
+    flavorDimensions.add("dataSource")
+    productFlavors {
+        create("prod") {
+            buildConfigField("Boolean", "USE_MOCK_UI", "false")
+        }
+        create("staging") {
+            dimension = "dataSource"
+            resValue("string", "app_name", "[Stg] Kotcoin")
+            applicationIdSuffix = ".staging"
+            versionNameSuffix = "-staging"
+            buildConfigField("Boolean", "USE_MOCK_UI", "false")
+        }
+        create("mock") {
+            dimension = "dataSource"
+            resValue("string", "app_name", "[Mock] Kotcoin")
+            applicationIdSuffix = ".mock"
+            versionNameSuffix = "-mock"
+            buildConfigField("Boolean", "USE_MOCK_UI", "true")
+        }
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -73,7 +95,6 @@ dependencies {
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
-//    implementation(libs.androidx.material3)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.ui.text.google.fonts)
     implementation(libs.androidx.material3.android)

@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.jnfran92.kotcoin.common.ui.theme.KotcoinAppTheme
 import com.jnfran92.kotcoin.dashboard.presentation.model.UICryptoPopular
-import com.jnfran92.kotcoin.dashboard.presentation.model.UIDashboard
+import com.jnfran92.kotcoin.dashboard.presentation.model.UIDashboardS2
 import com.jnfran92.kotcoin.dashboard.ui.compose.animation.getAlphaBrush
 
 @Composable
@@ -44,7 +44,7 @@ fun PopularItem(
                 ) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Text(
-                            text = "$${"%.${1}f".format(item.price.price / 1000)}K",
+                            text = "$${"%.${1}f".format(item.usdPrice / 1000)}K",
                             fontSize = 18.sp,
                             fontWeight = FontWeight.Normal,
                             modifier = Modifier.padding(2.dp)
@@ -83,7 +83,7 @@ fun PopularItem(
 fun PopularItemPreview() {
     KotcoinAppTheme {
         PopularItem(
-            item = UIDashboard.DUMMY.listOfPopular[0], modifier = Modifier
+            item = UIDashboardS2.DUMMY.listOfPopular[0], modifier = Modifier
                 .padding(8.dp)
                 .padding(bottom = 8.dp)
                 .height(150.dp)
