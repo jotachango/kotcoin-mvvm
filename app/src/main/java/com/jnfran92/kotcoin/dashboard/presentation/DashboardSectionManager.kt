@@ -3,78 +3,51 @@ package com.jnfran92.kotcoin.dashboard.presentation
 import com.jnfran92.domain.crypto.GetCryptoDetailsUseCase
 import com.jnfran92.domain.crypto.GetCryptoListUseCase
 import com.jnfran92.kotcoin.BuildConfig
-import com.jnfran92.kotcoin.dashboard.presentation.model.UICryptoFavorite
-import com.jnfran92.kotcoin.dashboard.presentation.model.UICryptoFavoriteTrending
-import com.jnfran92.kotcoin.dashboard.presentation.model.UICryptoPopular
+import com.jnfran92.kotcoin.dashboard.presentation.mapper.DashboardDomainToUIMapper
 import com.jnfran92.kotcoin.dashboard.presentation.model.UIDashboardS1
 import com.jnfran92.kotcoin.dashboard.presentation.model.UIDashboardS2
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.flow
-import timber.log.Timber
 import javax.inject.Inject
 
 class DashboardSectionManager @Inject constructor(
     private val getCryptoListUseCase: GetCryptoListUseCase,
-    private val getCryptoDetailsUseCase: GetCryptoDetailsUseCase
+    private val getCryptoDetailsUseCase: GetCryptoDetailsUseCase,
+    private val dashboardDomainToUIMapper: DashboardDomainToUIMapper
 ) {
     fun getSection1() = flow {
         if (!BuildConfig.USE_MOCK_UI) {
-            Timber.d("getSection1UseCase: ")
-            val data = getCryptoListUseCase.invoke().blockingGet()
-            Timber.d("getSection1UseCase: data $data")
-            val out = data.map {
-                UICryptoFavorite(
-                    id = it.id.toInt(),
-                    name = it.name,
-                    symbol = it.symbol,
-                    usdPrice = it.usdPrice.price,
-                    trending = if (it.usdPrice.percentChange24h > 0) {
-                        UICryptoFavoriteTrending.TrendingUp
-                    } else {
-                        UICryptoFavoriteTrending.TrendingDown
-                    }
-                )
-            }
+            val domainCryptoList = getCryptoListUseCase.invoke().blockingGet()
             emit(
-                UIDashboardS1(
-                    listOfFavorites = out
+                dashboardDomainToUIMapper.transform(
+                    domainCryptoList = domainCryptoList
                 )
             )
         } else {
-            delay(3000)
+            delay(DUMMY_DELAY_MS)
             emit(UIDashboardS1.DUMMY)
         }
     }
 
     fun getSection2() = flow {
         if (!BuildConfig.USE_MOCK_UI) {
-            val data = getCryptoListUseCase.invoke().blockingGet().subList(0, 40)
-            val out = data.map {
-                UICryptoPopular(
-                    id = it.id.toInt(),
-                    name = it.name,
-                    symbol = it.symbol,
-                    usdPrice = it.usdPrice.price,
-                    trending = if (it.usdPrice.percentChange24h > 0) {
-                        UICryptoFavoriteTrending.TrendingUp
-                    } else {
-                        UICryptoFavoriteTrending.TrendingDown
-                    },
-                    historicalUIPrice = getCryptoDetailsUseCase.invoke(it.id)
-                        .blockingGet().usdPrices.map {
-                            it.price
-                        }
-                )
-
+            val domainCryptoList = getCryptoListUseCase.invoke().blockingGet()
+            val domainCryptoDetailsList = domainCryptoList.map {
+                getCryptoDetailsUseCase.invoke(it.id).blockingGet()
             }
             emit(
-                UIDashboardS2(
-                    listOfPopular = out
+                dashboardDomainToUIMapper.transform(
+                    domainCryptoList = domainCryptoList,
+                    domainCryptoDetailsList = domainCryptoDetailsList
                 )
             )
         } else {
-            delay(3000)
+            delay(DUMMY_DELAY_MS)
             emit(UIDashboardS2.DUMMY)
         }
+    }
+
+    companion object {
+        const val DUMMY_DELAY_MS = 3000L
     }
 }
