@@ -1,7 +1,7 @@
 package com.jnfran92.kotcoin.dashboard.presentation
 
-import com.jnfran92.domain.crypto.GetCryptoDetailsUseCase
-import com.jnfran92.domain.crypto.GetCryptoListUseCase
+import com.jnfran92.domain.usecase.crypto.GetCryptoDetailsUseCase
+import com.jnfran92.domain.usecase.crypto.GetCryptoListUseCase
 import com.jnfran92.kotcoin.BuildConfig
 import com.jnfran92.kotcoin.dashboard.presentation.mapper.DashboardDomainToUIMapper
 import com.jnfran92.kotcoin.dashboard.presentation.model.UIDashboardS1

@@ -10,7 +10,7 @@ import com.jnfran92.data.crypto.source.crypto.local.CryptoDao
 import com.jnfran92.data.crypto.source.crypto.remote.CryptoRemoteSupplier
 import com.jnfran92.data.crypto.source.crypto.remote.CryptoRemoteSupplierImpl
 import com.jnfran92.data.crypto.source.db.AppDatabase
-import com.jnfran92.domain.crypto.repository.CryptoRepository
+import com.jnfran92.domain.repository.CryptoRepository
 import com.jnfran92.kotcoin.BuildConfig
 import dagger.Module
 import dagger.Provides

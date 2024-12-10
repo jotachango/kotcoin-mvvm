@@ -1,8 +1,8 @@
 package com.jnfran92.data.crypto.mapper
 
 import com.jnfran92.data.crypto.model.crypto.Crypto
-import com.jnfran92.domain.crypto.model.DomainCrypto
-import com.jnfran92.domain.crypto.model.DomainPrice
+import com.jnfran92.domain.model.DomainCrypto
+import com.jnfran92.domain.model.DomainPrice
 import javax.inject.Inject
 import javax.inject.Singleton
 

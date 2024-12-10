@@ -1,4 +1,4 @@
-package com.jnfran92.domain.crypto.model
+package com.jnfran92.domain.model
 
 data class DomainCrypto(
     val id: Long,

@@ -2,7 +2,7 @@ package com.jnfran92.kotcoin.crypto.presentation
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.jnfran92.domain.crypto.GetCryptoListUseCase
+import com.jnfran92.domain.usecase.crypto.GetCryptoListUseCase
 import com.jnfran92.kotcoin.crypto.presentation.mapper.DomainCryptoToUIMapper
 import com.jnfran92.kotcoin.crypto.presentation.model.UICrypto
 import com.jnfran92.kotcoin.crypto.presentation.uistate.CryptoListUIState

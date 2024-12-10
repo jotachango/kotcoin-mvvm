@@ -1,7 +1,7 @@
 package com.jnfran92.kotcoin.dashboard.presentation.mapper
 
-import com.jnfran92.domain.crypto.model.DomainCrypto
-import com.jnfran92.domain.crypto.model.DomainCryptoDetails
+import com.jnfran92.domain.model.DomainCrypto
+import com.jnfran92.domain.model.DomainCryptoDetails
 import com.jnfran92.kotcoin.dashboard.presentation.model.UICryptoFavorite
 import com.jnfran92.kotcoin.dashboard.presentation.model.UICryptoFavoriteTrending
 import com.jnfran92.kotcoin.dashboard.presentation.model.UICryptoPopular

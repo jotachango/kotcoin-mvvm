@@ -1,7 +1,7 @@
-package com.jnfran92.domain.crypto
+package com.jnfran92.domain.usecase.crypto
 
-import com.jnfran92.domain.crypto.model.DomainCrypto
-import com.jnfran92.domain.crypto.repository.CryptoRepository
+import com.jnfran92.domain.model.DomainCrypto
+import com.jnfran92.domain.repository.CryptoRepository
 import io.reactivex.Single
 import javax.inject.Inject
 
