@@ -1,7 +1,7 @@
 package com.jnfran92.kotcoin.dashboard.presentation
 
-import com.jnfran92.domain.usecase.crypto.GetCryptoDetailsUseCase
-import com.jnfran92.domain.usecase.crypto.GetCryptoListUseCase
+import com.jnfran92.domain.tissue.crypto.GetCryptoDetailsUseCase
+import com.jnfran92.domain.tissue.crypto.GetCryptoListUseCase
 import com.jnfran92.kotcoin.BuildConfig
 import com.jnfran92.kotcoin.dashboard.presentation.mapper.DashboardDomainToUIMapper
 import com.jnfran92.kotcoin.dashboard.presentation.model.UIDashboardS1
@@ -17,7 +17,7 @@ class DashboardSectionManager @Inject constructor(
 ) {
     fun getSection1() = flow {
         if (!BuildConfig.USE_MOCK_UI) {
-            val domainCryptoList = getCryptoListUseCase.invoke().blockingGet()
+            val domainCryptoList = getCryptoListUseCase()
             emit(
                 dashboardDomainToUIMapper.transform(
                     domainCryptoList = domainCryptoList
@@ -31,9 +31,9 @@ class DashboardSectionManager @Inject constructor(
 
     fun getSection2() = flow {
         if (!BuildConfig.USE_MOCK_UI) {
-            val domainCryptoList = getCryptoListUseCase.invoke().blockingGet()
+            val domainCryptoList = getCryptoListUseCase()
             val domainCryptoDetailsList = domainCryptoList.map {
-                getCryptoDetailsUseCase.invoke(it.id).blockingGet()
+                getCryptoDetailsUseCase(it.id)
             }
             emit(
                 dashboardDomainToUIMapper.transform(

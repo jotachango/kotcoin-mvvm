@@ -4,9 +4,9 @@ import com.jnfran92.data.crypto.datasource.CryptoDataSourceFactory
 import com.jnfran92.data.crypto.mapper.CryptoDetailsToDomainMapper
 import com.jnfran92.data.crypto.mapper.CryptoToDomainMapper
 import com.jnfran92.data.crypto.model.crypto.remote.CryptoRemote
-import com.jnfran92.domain.model.DomainCrypto
-import com.jnfran92.domain.model.DomainCryptoDetails
-import com.jnfran92.domain.repository.CryptoRepository
+import com.jnfran92.domain.cell.model.DomainCrypto
+import com.jnfran92.domain.cell.model.DomainCryptoDetails
+import com.jnfran92.domain.cell.CryptoRepository
 import io.reactivex.Single
 import io.reactivex.internal.operators.single.SingleDefer
 import io.reactivex.schedulers.Schedulers

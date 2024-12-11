@@ -1,7 +1,7 @@
-package com.jnfran92.domain.repository
+package com.jnfran92.domain.cell
 
-import com.jnfran92.domain.model.DomainCrypto
-import com.jnfran92.domain.model.DomainCryptoDetails
+import com.jnfran92.domain.cell.model.DomainCrypto
+import com.jnfran92.domain.cell.model.DomainCryptoDetails
 import io.reactivex.Single
 
 
