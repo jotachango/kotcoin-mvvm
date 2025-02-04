@@ -6,6 +6,6 @@ import javax.inject.Inject
 
 class GetCryptoPopularListUseCase @Inject constructor(private val cryptoCell: CryptoCell) {
     suspend operator fun invoke(): List<DomainPopularCrypto> {
-        return this.cryptoCell.shell.getPopularCryptoList()
+        return this.cryptoCell.getShell().getPopularCryptoList()
     }
 }

@@ -5,15 +5,15 @@ import com.jnfran92.domain.cell.model.DomainCryptoDetails
 import com.jnfran92.domain.cell.model.DomainFavoriteCrypto
 import com.jnfran92.domain.cell.model.DomainPopularCrypto
 
-class CryptoCell(
-    val surface: CryptoSurfaceRepository,
-    val shell: CryptoShellRepository,
-    val core: CryptoCoreRepository
-) {
+interface CryptoCell {
 
-    interface CryptoSurfaceRepository
+    fun getSurface(): CryptoSurface
+    fun getShell(): CryptoShell
+    fun getCore(): CryptoCore
 
-    interface CryptoShellRepository {
+    interface CryptoSurface
+
+    interface CryptoShell {
         suspend fun getFavoriteCryptoList(): List<DomainFavoriteCrypto>
         suspend fun getPopularCryptoList(): List<DomainPopularCrypto>
         suspend fun saveCryptoList(domainCryptoList: List<DomainCrypto>)
@@ -21,7 +21,7 @@ class CryptoCell(
         suspend fun getCryptoById(cryptoId: Long): DomainCryptoDetails
     }
 
-    interface CryptoCoreRepository {
+    interface CryptoCore {
         suspend fun getCryptoList(): List<DomainCrypto>
     }
 }

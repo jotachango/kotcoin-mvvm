@@ -1,4 +1,4 @@
-package com.jnfran92.data.crypto
+package com.jnfran92.data.crypto.source
 
 import com.jnfran92.data.crypto.datasource.CryptoDataSourceFactory
 import com.jnfran92.data.crypto.mapper.CryptoDetailsToDomainMapper

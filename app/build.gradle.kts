@@ -35,24 +35,19 @@ android {
         }
     }
 
-    flavorDimensions.add("dataSource")
+    val mockUI = false
+
+    flavorDimensions.add("env")
     productFlavors {
         create("prod") {
-            buildConfigField("Boolean", "USE_MOCK_UI", "false")
+            buildConfigField("Boolean", "USE_MOCK_UI", mockUI.toString())
         }
         create("staging") {
-            dimension = "dataSource"
+            dimension = "env"
             resValue("string", "app_name", "[Stg] Kotcoin")
             applicationIdSuffix = ".staging"
             versionNameSuffix = "-staging"
-            buildConfigField("Boolean", "USE_MOCK_UI", "false")
-        }
-        create("mock") {
-            dimension = "dataSource"
-            resValue("string", "app_name", "[Mock] Kotcoin")
-            applicationIdSuffix = ".mock"
-            versionNameSuffix = "-mock"
-            buildConfigField("Boolean", "USE_MOCK_UI", "true")
+            buildConfigField("Boolean", "USE_MOCK_UI", mockUI.toString())
         }
     }
 

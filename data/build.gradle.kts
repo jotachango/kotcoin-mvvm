@@ -1,3 +1,5 @@
+import kotlin.math.truncate
+
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
@@ -35,6 +37,24 @@ android {
 
     room {
         schemaDirectory("$projectDir/schemas")
+    }
+
+    buildFeatures {
+        buildConfig = true
+    }
+
+    val mockData = true
+
+    flavorDimensions.add("env")
+    productFlavors {
+        create("prod") {
+            dimension = "env"
+            buildConfigField("Boolean", "USE_MOCK_DATA", mockData.toString())
+        }
+        create("staging") {
+            dimension = "env"
+            buildConfigField("Boolean", "USE_MOCK_DATA", mockData.toString())
+        }
     }
 }
 

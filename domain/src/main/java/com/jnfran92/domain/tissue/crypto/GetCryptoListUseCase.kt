@@ -10,9 +10,9 @@ import javax.inject.Inject
 class GetCryptoListUseCase @Inject constructor(private val cryptoCell: CryptoCell) {
     suspend operator fun invoke(): List<DomainCrypto> {
         return cryptoCell
-            .core
+            .getCore()
             .getCryptoList()
-            .let { cryptoCell.shell.saveCryptoList(it) }
-            .let { cryptoCell.shell.getCryptoList() }
+            .let { cryptoCell.getShell().saveCryptoList(it) }
+            .let { cryptoCell.getShell().getCryptoList() }
     }
 }

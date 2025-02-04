@@ -3,6 +3,7 @@ package com.jnfran92.data.crypto
 import com.jnfran92.data.crypto.datasource.CryptoDataSourceFactory
 import com.jnfran92.data.crypto.mapper.CryptoDetailsToDomainMapper
 import com.jnfran92.data.crypto.mapper.CryptoToDomainMapper
+import com.jnfran92.data.crypto.mock.CryptoShellMockImpl
 import com.jnfran92.domain.cell.CryptoCell
 import com.jnfran92.domain.cell.model.DomainCrypto
 import com.jnfran92.domain.cell.model.DomainCryptoDetails
@@ -14,11 +15,12 @@ import javax.inject.Singleton
 import kotlin.random.Random
 
 @Singleton
-class CryptoShellRepositoryImpl @Inject constructor(
+class CryptoShellImpl @Inject constructor(
     private val cryptoDataSourceFactory: CryptoDataSourceFactory,
     private val cryptoToDomainMapper: CryptoToDomainMapper,
-    private val cryptoDetailsToDomainMapper: CryptoDetailsToDomainMapper
-): CryptoCell.CryptoShellRepository {
+    private val cryptoDetailsToDomainMapper: CryptoDetailsToDomainMapper,
+    val mock: CryptoShellMockImpl
+): CryptoCell.CryptoShell {
 
     private val dataSource = this.cryptoDataSourceFactory.createRemoteDataSource()
     override suspend fun getFavoriteCryptoList(): List<DomainFavoriteCrypto> {
@@ -33,21 +35,6 @@ class CryptoShellRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getPopularCryptoList(): List<DomainPopularCrypto> {
-//        val result = dataSource.getCryptoList().flatMap { it.map { crypto -> dataSource.getCryptoById(crypto.id) }  }
-//        val cryptoList = dataSource.getCryptoList().blockingGet()
-//        val cryptoDetails = cryptoList.map {crypto -> dataSource.getCryptoById(crypto.id).blockingGet() }.map {
-//            cryptoDetailsToDomainMapper.transform(it)
-//        }
-//
-//        val result = cryptoDetails.map {
-//            DomainPopularCrypto(
-//                id = Random.nextLong(),
-//                cryptoDetails = cryptoList.map { crypto -> cryptoToDomainMapper.transform(crypto) }.find { domainCrypto -> domainCrypto.id == it.id },
-//                it.usdPrices
-//            )
-//        }
-//        Timber.d("getFavoriteCryptoList: result $result")
-//        return result
         TODO("Not yet implemented")
     }
 

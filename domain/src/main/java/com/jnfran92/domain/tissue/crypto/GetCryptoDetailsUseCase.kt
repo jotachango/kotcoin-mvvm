@@ -12,6 +12,6 @@ import javax.inject.Inject
 class GetCryptoDetailsUseCase @Inject constructor(private val cryptoCell: CryptoCell) {
     suspend operator fun invoke(cryptoId: Long): DomainCryptoDetails {
         Timber.d("invoke: id $cryptoId")
-        return cryptoCell.shell.getCryptoById(cryptoId)
+        return cryptoCell.getShell().getCryptoById(cryptoId)
     }
 }

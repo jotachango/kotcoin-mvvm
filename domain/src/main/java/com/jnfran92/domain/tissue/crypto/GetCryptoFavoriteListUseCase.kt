@@ -7,6 +7,6 @@ import javax.inject.Inject
 
 class GetCryptoFavoriteListUseCase @Inject constructor(private val cryptoCell: CryptoCell) {
     suspend operator fun invoke(): List<DomainFavoriteCrypto> {
-        return this.cryptoCell.shell.getFavoriteCryptoList()
+        return this.cryptoCell.getShell().getFavoriteCryptoList()
     }
 }
